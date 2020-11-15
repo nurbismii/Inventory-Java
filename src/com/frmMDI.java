@@ -1,5 +1,3 @@
-package com;
-
 
 import javax.swing.JOptionPane;
 
@@ -15,13 +13,18 @@ import javax.swing.JOptionPane;
  */
 public class frmMDI extends javax.swing.JFrame {
 
-    /* Mendefinisikan Variabel Akses*/
-    String Username = "admin";
-    String Password = "admin";
-    
     /**
      * Creates new form frmMDI
      */
+    
+    
+    /* Mendefenisikan Variabel admin*/
+    private String Username = "admin";
+    private String Password = "admin";
+    
+    
+    
+    
     public frmMDI() {
         initComponents();
     }
@@ -35,52 +38,42 @@ public class frmMDI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktopPane = new javax.swing.JDesktopPane();
+        frmMDI = new javax.swing.JDesktopPane();
+        frmLogin = new javax.swing.JInternalFrame();
         PnlLogin = new javax.swing.JPanel();
         LblUsername = new javax.swing.JLabel();
         LblPassword = new javax.swing.JLabel();
-        TxtPasswordLogin = new javax.swing.JPasswordField();
         TxtUsername = new javax.swing.JTextField();
         BtnLogin = new javax.swing.JButton();
-        BtnExit = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        TxtPassword = new javax.swing.JPasswordField();
         menuBar = new javax.swing.JMenuBar();
-        MenuMaster = new javax.swing.JMenu();
+        MasterData = new javax.swing.JMenu();
         MenuBarang = new javax.swing.JMenuItem();
-        MenuCustomer = new javax.swing.JMenuItem();
         MenuSupplier = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        MenuAplikasi = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        Aplikasi = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        desktopPane.setBackground(new java.awt.Color(255, 255, 255));
+        frmMDI.setBackground(new java.awt.Color(255, 255, 255));
 
-        PnlLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LOGIN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 24))); // NOI18N
+        frmLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        frmLogin.setNormalBounds(new java.awt.Rectangle(0, 0, 1020, 740));
+        frmLogin.setVisible(true);
 
-        LblUsername.setText("USERNAME");
+        PnlLogin.setBackground(new java.awt.Color(204, 204, 204));
+        PnlLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trajan Pro", 0, 18))); // NOI18N
 
-        LblPassword.setText("PASSWORD");
+        LblUsername.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        LblUsername.setText("Username");
 
-        BtnLogin.setText("LOGIN");
+        LblPassword.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        LblPassword.setText("Password");
+
+        BtnLogin.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        BtnLogin.setText("Login");
         BtnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnLoginActionPerformed(evt);
-            }
-        });
-
-        BtnExit.setText("EXIT");
-        BtnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnExitActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Belum Mendaftar?");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
             }
         });
 
@@ -89,86 +82,68 @@ public class frmMDI extends javax.swing.JFrame {
         PnlLoginLayout.setHorizontalGroup(
             PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlLoginLayout.createSequentialGroup()
-                .addGap(101, 101, 101)
                 .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LblUsername)
-                    .addComponent(LblPassword))
-                .addGap(43, 43, 43)
-                .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TxtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                    .addComponent(TxtPasswordLogin))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlLoginLayout.createSequentialGroup()
-                .addContainerGap(195, Short.MAX_VALUE)
-                .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addGap(48, 48, 48))
+                    .addGroup(PnlLoginLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LblUsername)
+                            .addComponent(LblPassword))
+                        .addGap(53, 53, 53)
+                        .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TxtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(TxtPassword)))
+                    .addGroup(PnlLoginLayout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(BtnLogin)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         PnlLoginLayout.setVerticalGroup(
             PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlLoginLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(42, 42, 42)
                 .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LblUsername)
-                    .addComponent(TxtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                    .addComponent(TxtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LblUsername))
+                .addGap(31, 31, 31)
                 .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtPasswordLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LblPassword))
-                .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PnlLoginLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlLoginLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                        .addComponent(BtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
+                    .addComponent(LblPassword)
+                    .addComponent(TxtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(BtnLogin)
+                .addContainerGap())
         );
 
-        desktopPane.add(PnlLogin);
-        PnlLogin.setBounds(190, 150, 480, 250);
+        javax.swing.GroupLayout frmLoginLayout = new javax.swing.GroupLayout(frmLogin.getContentPane());
+        frmLogin.getContentPane().setLayout(frmLoginLayout);
+        frmLoginLayout.setHorizontalGroup(
+            frmLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PnlLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        frmLoginLayout.setVerticalGroup(
+            frmLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PnlLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
-        MenuMaster.setMnemonic('f');
-        MenuMaster.setText("Master Data");
+        frmMDI.add(frmLogin);
+        frmLogin.setBounds(290, 200, 430, 280);
 
-        MenuBarang.setMnemonic('o');
+        MasterData.setText("Master Data");
+
         MenuBarang.setText("Barang");
-        MenuBarang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MenuBarangMouseClicked(evt);
-            }
-        });
         MenuBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuBarangActionPerformed(evt);
             }
         });
-        MenuMaster.add(MenuBarang);
-
-        MenuCustomer.setMnemonic('s');
-        MenuCustomer.setText("Customer");
-        MenuMaster.add(MenuCustomer);
+        MasterData.add(MenuBarang);
 
         MenuSupplier.setText("Supplier");
-        MenuMaster.add(MenuSupplier);
+        MasterData.add(MenuSupplier);
 
-        jMenu1.setText("Export ");
-        MenuMaster.add(jMenu1);
+        menuBar.add(MasterData);
 
-        menuBar.add(MenuMaster);
-
-        MenuAplikasi.setText("Aplikasi");
-
-        jMenuItem3.setText("Exit");
-        MenuAplikasi.add(jMenuItem3);
-
-        menuBar.add(MenuAplikasi);
+        Aplikasi.setText("Aplikasi");
+        menuBar.add(Aplikasi);
 
         setJMenuBar(menuBar);
 
@@ -176,53 +151,48 @@ public class frmMDI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 861, Short.MAX_VALUE)
+            .addComponent(frmMDI, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+            .addComponent(frmMDI, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void BtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLoginActionPerformed
-        // Akses Panel Login
-        if(!Username.equals(TxtUsername.getText()) && !Password.equals(TxtPasswordLogin.getText())){
-            
+        // TODO add your handling code here: 
+        TxtUsername.requestFocus();
+
+        if(!Username.equals(TxtUsername.getText()) && !Password.equals(TxtPassword.getText())){
+
             JOptionPane.showMessageDialog(null, "Username atau Password salah !!!");
             TxtUsername.setText("");
-            TxtPasswordLogin.setText("");
-               
+            TxtPassword.setText("");
+
         }
-        else if(Username.equals(TxtUsername.getText()) && Password.equals(TxtPasswordLogin.getText())){
-                
+        else if(Username.equals(TxtUsername.getText()) && Password.equals(TxtPassword.getText())){
+
             PnlLogin.setVisible(false);
-            
+            frmLogin.setVisible(false);
         }
         else{
             JOptionPane.showMessageDialog(null, "Username atau Password salah !!!");
             TxtUsername.setText("");
-            TxtPasswordLogin.setText("");
+            TxtPassword.setText("");
         }
     }//GEN-LAST:event_BtnLoginActionPerformed
 
-    private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_BtnExitActionPerformed
-
     private void MenuBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarangActionPerformed
         // TODO add your handling code here:
+        frmBarang frmBarang = new frmBarang();
+        frmMDI.add(frmBarang);
+        if(Username.equals(TxtUsername.getText()) && Password.equals(TxtPassword.getText())){
+            MenuBarang.setEnabled(true);
+            frmBarang.setVisible(true);    
+        }
     }//GEN-LAST:event_MenuBarangActionPerformed
-
-    private void MenuBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuBarangMouseClicked
-       new frmBarang().setVisible(true);
-    }//GEN-LAST:event_MenuBarangMouseClicked
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new frmDaftar().setVisible(true);
-    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -255,28 +225,23 @@ public class frmMDI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmMDI().setVisible(true);
-                 
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnExit;
+    private javax.swing.JMenu Aplikasi;
     private javax.swing.JButton BtnLogin;
     private javax.swing.JLabel LblPassword;
     private javax.swing.JLabel LblUsername;
-    private javax.swing.JMenu MenuAplikasi;
+    private javax.swing.JMenu MasterData;
     private javax.swing.JMenuItem MenuBarang;
-    private javax.swing.JMenuItem MenuCustomer;
-    private javax.swing.JMenu MenuMaster;
     private javax.swing.JMenuItem MenuSupplier;
     private javax.swing.JPanel PnlLogin;
-    private javax.swing.JPasswordField TxtPasswordLogin;
+    private javax.swing.JPasswordField TxtPassword;
     private javax.swing.JTextField TxtUsername;
-    private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JInternalFrame frmLogin;
+    private javax.swing.JDesktopPane frmMDI;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
