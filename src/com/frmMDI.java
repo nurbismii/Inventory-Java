@@ -48,6 +48,7 @@ public class frmMDI extends javax.swing.JFrame {
         MenuBarang = new javax.swing.JMenuItem();
         MenuCustomer = new javax.swing.JMenuItem();
         MenuSupplier = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
         MenuAplikasi = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -140,6 +141,9 @@ public class frmMDI extends javax.swing.JFrame {
 
         MenuSupplier.setText("Supplier");
         MenuMaster.add(MenuSupplier);
+
+        jMenu1.setText("Export ");
+        MenuMaster.add(jMenu1);
 
         menuBar.add(MenuMaster);
 
@@ -241,6 +245,7 @@ public class frmMDI extends javax.swing.JFrame {
     private javax.swing.JTextField TxtUsername;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
