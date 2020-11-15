@@ -1,3 +1,5 @@
+package com;
+
 
 import javax.swing.JOptionPane;
 
@@ -39,6 +41,8 @@ public class frmMDI extends javax.swing.JFrame {
         TxtPasswordLogin = new javax.swing.JPasswordField();
         TxtUsername = new javax.swing.JTextField();
         BtnLogin = new javax.swing.JButton();
+        BtnExit = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         MenuMaster = new javax.swing.JMenu();
         MenuBarang = new javax.swing.JMenuItem();
@@ -64,6 +68,15 @@ public class frmMDI extends javax.swing.JFrame {
             }
         });
 
+        BtnExit.setText("EXIT");
+        BtnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnExitActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Belum Mendaftar?");
+
         javax.swing.GroupLayout PnlLoginLayout = new javax.swing.GroupLayout(PnlLogin);
         PnlLogin.setLayout(PnlLoginLayout);
         PnlLoginLayout.setHorizontalGroup(
@@ -79,9 +92,13 @@ public class frmMDI extends javax.swing.JFrame {
                     .addComponent(TxtPasswordLogin))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlLoginLayout.createSequentialGroup()
-                .addContainerGap(177, Short.MAX_VALUE)
-                .addComponent(BtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(162, 162, 162))
+                .addContainerGap(195, Short.MAX_VALUE)
+                .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(48, 48, 48))
         );
         PnlLoginLayout.setVerticalGroup(
             PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,9 +111,17 @@ public class frmMDI extends javax.swing.JFrame {
                 .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtPasswordLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LblPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(BtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(PnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PnlLoginLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlLoginLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addComponent(BtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
 
         desktopPane.add(PnlLogin);
@@ -162,6 +187,10 @@ public class frmMDI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnLoginActionPerformed
 
+    private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnExitActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -198,6 +227,7 @@ public class frmMDI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnExit;
     private javax.swing.JButton BtnLogin;
     private javax.swing.JLabel LblPassword;
     private javax.swing.JLabel LblUsername;
@@ -210,6 +240,7 @@ public class frmMDI extends javax.swing.JFrame {
     private javax.swing.JPasswordField TxtPasswordLogin;
     private javax.swing.JTextField TxtUsername;
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
