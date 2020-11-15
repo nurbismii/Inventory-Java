@@ -49,8 +49,16 @@ public class frmMDI extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         MasterData = new javax.swing.JMenu();
         MenuBarang = new javax.swing.JMenuItem();
+        MenuTransaksi = new javax.swing.JMenuItem();
         MenuSupplier = new javax.swing.JMenuItem();
+        MenuCustomer = new javax.swing.JMenuItem();
         Aplikasi = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        Exit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,12 +145,53 @@ public class frmMDI extends javax.swing.JFrame {
         });
         MasterData.add(MenuBarang);
 
+        MenuTransaksi.setText("Transaksi");
+        MenuTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuTransaksiActionPerformed(evt);
+            }
+        });
+        MasterData.add(MenuTransaksi);
+
         MenuSupplier.setText("Supplier");
+        MenuSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuSupplierActionPerformed(evt);
+            }
+        });
         MasterData.add(MenuSupplier);
+
+        MenuCustomer.setText("Customer");
+        MenuCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCustomerActionPerformed(evt);
+            }
+        });
+        MasterData.add(MenuCustomer);
 
         menuBar.add(MasterData);
 
         Aplikasi.setText("Aplikasi");
+
+        jMenuItem1.setText("Inventori Barang");
+        Aplikasi.add(jMenuItem1);
+
+        jMenu2.setText("Export");
+
+        jMenuItem2.setText("Transaksi Penjualan");
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Barang");
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem4.setText("Supplier");
+        jMenu2.add(jMenuItem4);
+
+        Aplikasi.add(jMenu2);
+
+        Exit.setText("Exit");
+        Aplikasi.add(Exit);
+
         menuBar.add(Aplikasi);
 
         setJMenuBar(menuBar);
@@ -151,11 +200,11 @@ public class frmMDI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(frmMDI, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
+            .addComponent(frmMDI, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1022, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(frmMDI, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
+            .addComponent(frmMDI, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -193,6 +242,36 @@ public class frmMDI extends javax.swing.JFrame {
             frmBarang.setVisible(true);    
         }
     }//GEN-LAST:event_MenuBarangActionPerformed
+
+    private void MenuSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSupplierActionPerformed
+        // TODO add your handling code here:
+        frmSupplier frmSupplier = new frmSupplier();
+        frmMDI.add(frmSupplier);
+        if(Username.equals(TxtUsername.getText()) && Password.equals(TxtPassword.getText())){
+            MenuSupplier.setEnabled(true);
+            frmSupplier.setVisible(true);    
+        }
+    }//GEN-LAST:event_MenuSupplierActionPerformed
+
+    private void MenuCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCustomerActionPerformed
+        // TODO add your handling code here:
+        frmCustomer frmCustomer = new frmCustomer();
+        frmMDI.add(frmCustomer);
+        if(Username.equals(TxtUsername.getText()) && Password.equals(TxtPassword.getText())){
+            MenuCustomer.setEnabled(true);
+            frmCustomer.setVisible(true);    
+        }
+    }//GEN-LAST:event_MenuCustomerActionPerformed
+
+    private void MenuTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuTransaksiActionPerformed
+        // TODO add your handling code here:
+        frmTransaksi frmTransaksi = new frmTransaksi();
+        frmMDI.add(frmTransaksi);
+        if(Username.equals(TxtUsername.getText()) && Password.equals(TxtPassword.getText())){
+            MenuTransaksi.setEnabled(true);
+            frmTransaksi.setVisible(true);    
+        }
+    }//GEN-LAST:event_MenuTransaksiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,16 +311,24 @@ public class frmMDI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Aplikasi;
     private javax.swing.JButton BtnLogin;
+    private javax.swing.JMenuItem Exit;
     private javax.swing.JLabel LblPassword;
     private javax.swing.JLabel LblUsername;
     private javax.swing.JMenu MasterData;
     private javax.swing.JMenuItem MenuBarang;
+    private javax.swing.JMenuItem MenuCustomer;
     private javax.swing.JMenuItem MenuSupplier;
+    private javax.swing.JMenuItem MenuTransaksi;
     private javax.swing.JPanel PnlLogin;
     private javax.swing.JPasswordField TxtPassword;
     private javax.swing.JTextField TxtUsername;
     private javax.swing.JInternalFrame frmLogin;
     private javax.swing.JDesktopPane frmMDI;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
