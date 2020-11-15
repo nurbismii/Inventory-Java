@@ -18,6 +18,7 @@ public class frmMDI extends javax.swing.JFrame {
     /* Mendefinisikan Variabel Akses*/
     String Username = "admin";
     String Password = "admin";
+    
     /**
      * Creates new form frmMDI
      */
@@ -77,6 +78,11 @@ public class frmMDI extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Belum Mendaftar?");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout PnlLoginLayout = new javax.swing.GroupLayout(PnlLogin);
         PnlLogin.setLayout(PnlLoginLayout);
@@ -133,6 +139,16 @@ public class frmMDI extends javax.swing.JFrame {
 
         MenuBarang.setMnemonic('o');
         MenuBarang.setText("Barang");
+        MenuBarang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuBarangMouseClicked(evt);
+            }
+        });
+        MenuBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuBarangActionPerformed(evt);
+            }
+        });
         MenuMaster.add(MenuBarang);
 
         MenuCustomer.setMnemonic('s');
@@ -193,7 +209,20 @@ public class frmMDI extends javax.swing.JFrame {
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_BtnExitActionPerformed
+
+    private void MenuBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuBarangActionPerformed
+
+    private void MenuBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuBarangMouseClicked
+       new frmBarang().setVisible(true);
+    }//GEN-LAST:event_MenuBarangMouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        new frmDaftar().setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -226,6 +255,7 @@ public class frmMDI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmMDI().setVisible(true);
+                 
             }
         });
     }
