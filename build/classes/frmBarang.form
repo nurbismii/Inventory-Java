@@ -135,7 +135,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Trajan Pro" size="16" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="HArga"/>
+        <Property name="text" type="java.lang.String" value="Harga"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="LblStok">
@@ -189,6 +189,9 @@
     <Component class="javax.swing.JTextField" name="TxtNamaBarang">
     </Component>
     <Component class="javax.swing.JTextField" name="TxtHarga">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TxtHargaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BtnExit">
       <Properties>
@@ -307,6 +310,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Tambah"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnTambahActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BtnEdit">
           <Properties>

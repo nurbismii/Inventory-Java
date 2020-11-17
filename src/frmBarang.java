@@ -1,3 +1,10 @@
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,6 +17,20 @@
  */
 public class frmBarang extends javax.swing.JInternalFrame {
 
+    Connection con;
+    Statement stat;
+    String sql, kelas;
+    ResultSet res;
+    Date jdc = new Date();
+    
+    public void dbToBarang() {
+        initComponents();
+        Config conf = new Config();
+        conf.config();
+        con = conf.con;
+        stat = conf.stm;
+        this.setLocationRelativeTo(null);
+    }
     /**
      * Creates new form frmBarang
      */
@@ -57,7 +78,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
         LblNamaBarang.setText("Nama Barang");
 
         LblHarga.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        LblHarga.setText("HArga");
+        LblHarga.setText("Harga");
 
         LblStok.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblStok.setText("Stok");
@@ -83,6 +104,12 @@ public class frmBarang extends javax.swing.JInternalFrame {
                 .addComponent(LblFormBarang)
                 .addContainerGap(29, Short.MAX_VALUE))
         );
+
+        TxtHarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtHargaActionPerformed(evt);
+            }
+        });
 
         BtnExit.setFont(new java.awt.Font("Trajan Pro", 1, 16)); // NOI18N
         BtnExit.setText("Tutup");
@@ -112,6 +139,11 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
         BtnTambah.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnTambah.setText("Tambah");
+        BtnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTambahActionPerformed(evt);
+            }
+        });
 
         BtnEdit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnEdit.setText("Edit");
@@ -236,6 +268,27 @@ public class frmBarang extends javax.swing.JInternalFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BtnExitActionPerformed
 
+    private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
+        
+        if (TxtKodeBarang.getText().equals("") || TxtKodeBarang.getText().equals("") || TxtNamaBarang.getText().equals("") || TxtNamaBarang.getText().equals("") || TxtHarga.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "LENGKAPI SEMUA DATA!");
+        } else {
+            try {
+                String sql = "INSERT INTO pasien_tb VALUES (null,'" + TxtKodeBarang.getText() + "','" + TxtNamaBarang.getText() + "')";
+                stat.executeUpdate(sql);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Tambah  Data GAGAL! " + e.getMessage());
+            }
+            JOptionPane.showMessageDialog(null, "Tambah  Data Berhasil!");
+            this.dispose();
+    }
+    }//GEN-LAST:event_BtnTambahActionPerformed
+
+    private void TxtHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtHargaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtHargaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCari;
@@ -260,4 +313,8 @@ public class frmBarang extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void setLocationRelativeTo(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

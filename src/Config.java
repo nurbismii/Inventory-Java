@@ -21,7 +21,7 @@ public class Config {
     public Connection config() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection("jdbc:mysql://localhost/??????", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/tokoenterprise", "root", "");
             stm = con.createStatement();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Koneksi Gagal\n" + e.getMessage());
