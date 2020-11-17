@@ -41,7 +41,7 @@ public class frmMDI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ImageIcon icon = new ImageIcon(getClass().getResource("bg-apk2.jpg"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("bg-apk.jpg"));
         Image img = icon.getImage();
         frmMDI = new javax.swing.JDesktopPane(){
             public void paintComponent(Graphics g){
@@ -56,9 +56,13 @@ public class frmMDI extends javax.swing.JFrame {
         TxtUsername = new javax.swing.JTextField();
         BtnLogin = new javax.swing.JButton();
         TxtPassword = new javax.swing.JPasswordField();
-        BtnSupplier = new javax.swing.JButton();
-        BtnBarang = new javax.swing.JButton();
-        BtnTransaksi = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         MasterData = new javax.swing.JMenu();
         MenuBarang = new javax.swing.JMenuItem();
@@ -155,32 +159,61 @@ public class frmMDI extends javax.swing.JFrame {
         frmMDI.add(frmLogin);
         frmLogin.setBounds(0, 0, 1020, 710);
 
-        BtnSupplier.setText("SUPPLIER");
-        BtnSupplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnSupplierActionPerformed(evt);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
-        frmMDI.add(BtnSupplier);
-        BtnSupplier.setBounds(10, 400, 320, 100);
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
-        BtnBarang.setText("BARANG");
-        BtnBarang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBarangActionPerformed(evt);
-            }
-        });
-        frmMDI.add(BtnBarang);
-        BtnBarang.setBounds(10, 170, 320, 90);
+        frmMDI.add(jScrollPane1);
+        jScrollPane1.setBounds(40, 130, 452, 110);
 
-        BtnTransaksi.setText("TRANSAKSI");
-        BtnTransaksi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnTransaksiActionPerformed(evt);
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
-        frmMDI.add(BtnTransaksi);
-        BtnTransaksi.setBounds(10, 280, 320, 100);
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        frmMDI.add(jScrollPane2);
+        jScrollPane2.setBounds(530, 130, 452, 110);
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Daftar Barang");
+        frmMDI.add(jLabel1);
+        jLabel1.setBounds(220, 100, 100, 20);
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Daftar Transaksi");
+        frmMDI.add(jLabel2);
+        jLabel2.setBounds(700, 100, 120, 20);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 90, Short.MAX_VALUE)
+        );
+
+        frmMDI.add(jPanel1);
+        jPanel1.setBounds(10, 610, 1000, 90);
 
         MasterData.setText("Master Data");
 
@@ -307,16 +340,6 @@ public class frmMDI extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_MenuExitActionPerformed
 
-    private void BtnBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBarangActionPerformed
-        // TODO add your handling code here:
-        frmBarang frmBarang = new frmBarang();
-        frmMDI.add(frmBarang);
-        if(Username.equals(TxtUsername.getText()) && Password.equals(TxtPassword.getText())){
-            MenuBarang.setEnabled(true);
-            frmBarang.setVisible(true);    
-        }   
-    }//GEN-LAST:event_BtnBarangActionPerformed
-
     private void BtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLoginActionPerformed
         // TODO add your handling code here:
         TxtUsername.requestFocus();
@@ -339,26 +362,6 @@ public class frmMDI extends javax.swing.JFrame {
             TxtPassword.setText("");
         }
     }//GEN-LAST:event_BtnLoginActionPerformed
-
-    private void BtnTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTransaksiActionPerformed
-        // TODO add your handling code here:
-        frmTransaksi frmTransaksi = new frmTransaksi();
-        frmMDI.add(frmTransaksi);
-        if(Username.equals(TxtUsername.getText()) && Password.equals(TxtPassword.getText())){
-            MenuTransaksi.setEnabled(true);
-            frmTransaksi.setVisible(true);    
-        }  
-    }//GEN-LAST:event_BtnTransaksiActionPerformed
-
-    private void BtnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSupplierActionPerformed
-        // TODO add your handling code here:
-        frmSupplier frmSupplier = new frmSupplier();
-        frmMDI.add(frmSupplier);
-        if(Username.equals(TxtUsername.getText()) && Password.equals(TxtPassword.getText())){
-            MenuSupplier.setEnabled(true);
-            frmSupplier.setVisible(true);    
-        }
-    }//GEN-LAST:event_BtnSupplierActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,10 +400,7 @@ public class frmMDI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Aplikasi;
-    private javax.swing.JButton BtnBarang;
     private javax.swing.JButton BtnLogin;
-    private javax.swing.JButton BtnSupplier;
-    private javax.swing.JButton BtnTransaksi;
     private javax.swing.JLabel LblPassword;
     private javax.swing.JLabel LblUsername;
     private javax.swing.JMenu MasterData;
@@ -414,11 +414,18 @@ public class frmMDI extends javax.swing.JFrame {
     private javax.swing.JTextField TxtUsername;
     private javax.swing.JInternalFrame frmLogin;
     private javax.swing.JDesktopPane frmMDI;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 

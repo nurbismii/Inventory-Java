@@ -40,7 +40,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         TxtAlamat = new javax.swing.JTextField();
         TxtEmail = new javax.swing.JTextField();
         LblAkses = new javax.swing.JLabel();
-        ComboAkses = new javax.swing.JComboBox<>();
+        ComboAkses = new javax.swing.JComboBox<String>();
         LblPassword = new javax.swing.JLabel();
         TxtPassword = new javax.swing.JPasswordField();
         LblConfirmPassword = new javax.swing.JLabel();
@@ -98,7 +98,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         LblAkses.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblAkses.setText("Akses");
 
-        ComboAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user" }));
+        ComboAkses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "admin", "user" }));
 
         LblPassword.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblPassword.setText("Password");
@@ -214,7 +214,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                                             .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(ComboAkses, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(TxtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                                         .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(31, 31, 31))))))
             .addGroup(layout.createSequentialGroup()
