@@ -54,6 +54,8 @@ public class frmMDI extends javax.swing.JFrame {
         BtnTransaksi = new javax.swing.JButton();
         PnlTokoPenjualan = new javax.swing.JPanel();
         LblTokoPenjulan = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         MasterData = new javax.swing.JMenu();
         MenuBarang = new javax.swing.JMenuItem();
@@ -74,6 +76,8 @@ public class frmMDI extends javax.swing.JFrame {
         frmMDI.setBackground(new java.awt.Color(255, 255, 255));
         frmMDI.setForeground(new java.awt.Color(204, 204, 204));
 
+        BtnSupplier.setBackground(new java.awt.Color(255, 153, 51));
+        BtnSupplier.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
         BtnSupplier.setText("SUPPLIER");
         BtnSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,8 +85,10 @@ public class frmMDI extends javax.swing.JFrame {
             }
         });
         frmMDI.add(BtnSupplier);
-        BtnSupplier.setBounds(20, 530, 320, 140);
+        BtnSupplier.setBounds(30, 660, 320, 140);
 
+        BtnBarang.setBackground(new java.awt.Color(51, 204, 255));
+        BtnBarang.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
         BtnBarang.setText("BARANG");
         BtnBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,8 +96,10 @@ public class frmMDI extends javax.swing.JFrame {
             }
         });
         frmMDI.add(BtnBarang);
-        BtnBarang.setBounds(20, 150, 320, 140);
+        BtnBarang.setBounds(30, 210, 320, 140);
 
+        BtnTransaksi.setBackground(new java.awt.Color(0, 204, 204));
+        BtnTransaksi.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
         BtnTransaksi.setText("TRANSAKSI");
         BtnTransaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,12 +107,22 @@ public class frmMDI extends javax.swing.JFrame {
             }
         });
         frmMDI.add(BtnTransaksi);
-        BtnTransaksi.setBounds(20, 340, 320, 140);
+        BtnTransaksi.setBounds(30, 430, 320, 140);
 
-        PnlTokoPenjualan.setBackground(new java.awt.Color(204, 204, 204));
+        PnlTokoPenjualan.setBackground(new java.awt.Color(91, 128, 159));
 
+        LblTokoPenjulan.setBackground(new java.awt.Color(255, 255, 255));
         LblTokoPenjulan.setFont(new java.awt.Font("Sitka Small", 0, 36)); // NOI18N
+        LblTokoPenjulan.setForeground(new java.awt.Color(255, 255, 255));
         LblTokoPenjulan.setText("TOKO ABU DHABI");
+
+        jLabel1.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Login");
+
+        jLabel2.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Logout");
 
         javax.swing.GroupLayout PnlTokoPenjualanLayout = new javax.swing.GroupLayout(PnlTokoPenjualan);
         PnlTokoPenjualan.setLayout(PnlTokoPenjualanLayout);
@@ -113,7 +131,11 @@ public class frmMDI extends javax.swing.JFrame {
             .addGroup(PnlTokoPenjualanLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(LblTokoPenjulan)
-                .addContainerGap(1557, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1220, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(65, 65, 65)
+                .addComponent(jLabel2)
+                .addGap(86, 86, 86))
         );
         PnlTokoPenjualanLayout.setVerticalGroup(
             PnlTokoPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,6 +143,12 @@ public class frmMDI extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(LblTokoPenjulan)
                 .addGap(25, 25, 25))
+            .addGroup(PnlTokoPenjualanLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(PnlTokoPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         frmMDI.add(PnlTokoPenjualan);
@@ -196,15 +224,11 @@ public class frmMDI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(frmMDI, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(frmMDI, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(frmMDI, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(frmMDI, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE)
         );
 
         pack();
@@ -323,6 +347,8 @@ public class frmMDI extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuTransaksi;
     private javax.swing.JPanel PnlTokoPenjualan;
     private javax.swing.JDesktopPane frmMDI;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

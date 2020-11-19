@@ -376,12 +376,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
 
     private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
         // Menambah data customer
-        while(TxtIdCustomer.equals("")){
-            int i = 1;
-            TxtIdCustomer.setText(StringValueOf(i));
-            i++;
-        }
-        TxtIdCustomer.setEditable(false);
+        
         try {
 
             String hakAkses = "";
@@ -453,7 +448,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                         + "'password = '" + Arrays.toString(TxtPassword.getPassword())
                         + "'password_conf ='" + Arrays.toString(TxtPasswordConfirm.getPassword())
                         + "'WHERE id_customer = '" + TxtIdCustomer.getText() + "'";
-                
+                TxtIdCustomer.setEditable(false);
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Data Berhasil di Update!");
@@ -474,6 +469,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
 
         String IdCustomer = TableDaftarCustomer.getValueAt(baris, 0).toString();
         TxtIdCustomer.setText(IdCustomer);
+        TxtIdCustomer.setEditable(false);
 
         String namaLengkap = TableDaftarCustomer.getValueAt(baris, 1).toString();
         TxtNamaLengkap.setText(namaLengkap);

@@ -26,10 +26,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
      */
      
     public frmBarang() {
-                initComponents();
-        connector k = new connector();
-        
-        
+        initComponents();       
     }
 
     /**
