@@ -28,46 +28,45 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="PnlFormBarang" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="LblMerk" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="LblWarna" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="LblNamaBarang" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="LblKodeBarang" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="LblHarga" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="LblTahun" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="TxtKodeBarang" min="-2" pref="228" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="TxtNamaBarang" alignment="0" pref="295" max="32767" attributes="0"/>
-                          <Component id="TxtMerk" alignment="0" max="32767" attributes="0"/>
-                          <Component id="TxtWarna" alignment="0" max="32767" attributes="0"/>
-                          <Component id="TxtTahun" alignment="0" max="32767" attributes="0"/>
-                          <Component id="TxtHarga" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="PnlAksi" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="BtnExit" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-          </Group>
-          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="327" max="-2" attributes="0"/>
               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="338" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="LblHarga" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="LblStok" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="LblNamaBarang" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="LblKodeBarang" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="TxtNamaBarang" alignment="0" pref="295" max="32767" attributes="0"/>
+                              <Component id="TxtHarga" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="TxtKodeBarang" min="-2" pref="228" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="BtnCari" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="SpinnerStok" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="PnlAksi" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="BtnExit" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -75,51 +74,41 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="PnlFormBarang" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="LblKodeBarang" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="TxtKodeBarang" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="BtnCari" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="TxtNamaBarang" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="LblNamaBarang" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="TxtMerk" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="LblMerk" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="LblWarna" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="TxtWarna" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="TxtTahun" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="LblTahun" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="LblHarga" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="TxtHarga" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="LblHarga" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="LblStok" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="SpinnerStok" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="PnlAksi" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="BtnExit" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="129" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -141,36 +130,20 @@
         <Property name="text" type="java.lang.String" value="Nama Barang"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="LblMerk">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Trajan Pro" size="16" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Merk"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="LblWarna">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Trajan Pro" size="16" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Warna"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="LblTahun">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Trajan Pro" size="16" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Tahun"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="LblHarga">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Trajan Pro" size="16" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Harga"/>
+        <Property name="text" type="java.lang.String" value="HArga"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="LblStok">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Trajan Pro" size="16" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Stok"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="TxtKodeBarang">
@@ -185,19 +158,19 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="327" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="LblFormBarang" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="289" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="316" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="LblFormBarang" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <EmptySpace pref="29" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -214,12 +187,6 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="TxtNamaBarang">
-    </Component>
-    <Component class="javax.swing.JTextField" name="TxtMerk">
-    </Component>
-    <Component class="javax.swing.JTextField" name="TxtWarna">
-    </Component>
-    <Component class="javax.swing.JTextField" name="TxtTahun">
     </Component>
     <Component class="javax.swing.JTextField" name="TxtHarga">
     </Component>
@@ -244,27 +211,15 @@
         <Component class="javax.swing.JTable" name="TblDaftarBarang">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="6">
+              <Table columnCount="4" rowCount="6">
                 <Column editable="true" title="Kode Barang" type="java.lang.Object"/>
                 <Column editable="true" title="Nama Barang" type="java.lang.Object"/>
-                <Column editable="true" title="Merk" type="java.lang.Object"/>
-                <Column editable="true" title="Warna" type="java.lang.Object"/>
-                <Column editable="true" title="Tahun" type="java.lang.Object"/>
                 <Column editable="true" title="Harga" type="java.lang.Object"/>
+                <Column editable="true" title="Stok" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -386,6 +341,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="DAFTAR BARANG"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="BtnCari">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Trajan Pro" size="16" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Cari "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="SpinnerStok">
     </Component>
   </SubComponents>
 </Form>

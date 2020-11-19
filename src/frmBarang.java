@@ -1,3 +1,9 @@
+
+import com.mysql.jdbc.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,12 +15,21 @@
  * @author user
  */
 public class frmBarang extends javax.swing.JInternalFrame {
+    Connection con;
+    Statement stat;
+    String sql, kelas;
+    ResultSet res;
+
 
     /**
      * Creates new form frmBarang
      */
+     
     public frmBarang() {
-        initComponents();
+                initComponents();
+        connector k = new connector();
+        
+        
     }
 
     /**
@@ -27,49 +42,34 @@ public class frmBarang extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        LblKodeBarang = new javax.swing.JLabel();
-        LblNamaBarang = new javax.swing.JLabel();
-        LblMerk = new javax.swing.JLabel();
-        LblWarna = new javax.swing.JLabel();
-        LblTahun = new javax.swing.JLabel();
-        LblHarga = new javax.swing.JLabel();
-        TxtKodeBarang = new javax.swing.JTextField();
         PnlFormBarang = new javax.swing.JPanel();
         LblFormBarang = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        LblKodeBarang = new javax.swing.JLabel();
+        TxtKodeBarang = new javax.swing.JTextField();
+        LblNamaBarang = new javax.swing.JLabel();
         TxtNamaBarang = new javax.swing.JTextField();
-        TxtMerk = new javax.swing.JTextField();
-        TxtWarna = new javax.swing.JTextField();
-        TxtTahun = new javax.swing.JTextField();
+        LblHarga = new javax.swing.JLabel();
         TxtHarga = new javax.swing.JTextField();
-        BtnExit = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TblDaftarBarang = new javax.swing.JTable();
+        LblStok = new javax.swing.JLabel();
+        SpinnerStok = new javax.swing.JSpinner();
         PnlAksi = new javax.swing.JPanel();
         BtnTambah = new javax.swing.JButton();
         BtnEdit = new javax.swing.JButton();
         BtnHapus = new javax.swing.JButton();
         BtnClear = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        TxtTotalHarga = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        BtnCari = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TblDaftarBarang = new javax.swing.JTable();
+        BtnExit = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
-        LblKodeBarang.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        LblKodeBarang.setText("Kode Barang");
-
-        LblNamaBarang.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        LblNamaBarang.setText("Nama Barang");
-
-        LblMerk.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        LblMerk.setText("Merk");
-
-        LblWarna.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        LblWarna.setText("Warna");
-
-        LblTahun.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        LblTahun.setText("Tahun");
-
-        LblHarga.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        LblHarga.setText("Harga");
+        setBackground(new java.awt.Color(255, 255, 255));
 
         PnlFormBarang.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -81,46 +81,42 @@ public class frmBarang extends javax.swing.JInternalFrame {
         PnlFormBarangLayout.setHorizontalGroup(
             PnlFormBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlFormBarangLayout.createSequentialGroup()
-                .addGap(327, 327, 327)
+                .addGap(444, 444, 444)
                 .addComponent(LblFormBarang)
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PnlFormBarangLayout.setVerticalGroup(
             PnlFormBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlFormBarangLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(29, 29, 29)
                 .addComponent(LblFormBarang)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        BtnExit.setFont(new java.awt.Font("Trajan Pro", 1, 16)); // NOI18N
-        BtnExit.setText("Tutup");
-        BtnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnExitActionPerformed(evt);
-            }
-        });
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("DATA BARANG"));
 
-        TblDaftarBarang.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Kode Barang", "Nama Barang", "Merk", "Warna", "Tahun", "Harga"
-            }
-        ));
-        jScrollPane1.setViewportView(TblDaftarBarang);
+        LblKodeBarang.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        LblKodeBarang.setText("Kode Barang");
+
+        LblNamaBarang.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        LblNamaBarang.setText("Nama Barang");
+
+        LblHarga.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        LblHarga.setText("HArga");
+
+        LblStok.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        LblStok.setText("Stok");
 
         PnlAksi.setBackground(new java.awt.Color(204, 204, 204));
         PnlAksi.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Action", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trajan Pro", 0, 18))); // NOI18N
 
         BtnTambah.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnTambah.setText("Tambah");
+        BtnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTambahActionPerformed(evt);
+            }
+        });
 
         BtnEdit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnEdit.setText("Edit");
@@ -160,8 +156,137 @@ public class frmBarang extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel8.setFont(new java.awt.Font("Trajan Pro", 0, 18)); // NOI18N
-        jLabel8.setText("DAFTAR BARANG");
+        jLabel1.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        jLabel1.setText("Total Harga");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(LblKodeBarang)
+                        .addGap(18, 18, 18)
+                        .addComponent(TxtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(LblNamaBarang)
+                        .addGap(18, 18, 18)
+                        .addComponent(TxtNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(LblHarga)
+                                .addComponent(LblStok))
+                            .addGap(79, 79, 79)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(TxtHarga, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                                .addComponent(SpinnerStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TxtTotalHarga))))
+                    .addComponent(jLabel1))
+                .addGap(0, 44, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LblKodeBarang)
+                    .addComponent(TxtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LblNamaBarang)
+                    .addComponent(TxtNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LblHarga))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LblStok, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SpinnerStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(TxtTotalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("DAFTAR BARANG"));
+
+        BtnCari.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        BtnCari.setText("Cari ");
+
+        TblDaftarBarang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Kode Barang", "Nama Barang", "Harga", "Stok", "Total Harga"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TblDaftarBarang);
+
+        BtnExit.setFont(new java.awt.Font("Trajan Pro", 1, 16)); // NOI18N
+        BtnExit.setText("Tutup");
+        BtnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnExitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(0, 27, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(BtnCari)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BtnExit, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnCari)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtnExit)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,79 +294,21 @@ public class frmBarang extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PnlFormBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LblMerk)
-                    .addComponent(LblWarna)
-                    .addComponent(LblNamaBarang)
-                    .addComponent(LblKodeBarang)
-                    .addComponent(LblHarga)
-                    .addComponent(LblTahun))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(TxtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtNamaBarang, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                            .addComponent(TxtMerk)
-                            .addComponent(TxtWarna)
-                            .addComponent(TxtTahun)
-                            .addComponent(TxtHarga))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(BtnExit)
-                                .addGap(22, 22, 22)))
-                        .addGap(69, 69, 69))))
-            .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(338, 338, 338))
+                .addGap(21, 21, 21)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PnlFormBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LblKodeBarang)
-                            .addComponent(TxtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LblNamaBarang))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtMerk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LblMerk))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LblWarna, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TxtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtTahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LblTahun))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LblHarga)
-                            .addComponent(TxtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnExit)
-                        .addGap(2, 2, 2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -252,8 +319,14 @@ public class frmBarang extends javax.swing.JInternalFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BtnExitActionPerformed
 
+    private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
+        // TODO add your handling code here
+ 
+    }//GEN-LAST:event_BtnTambahActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCari;
     private javax.swing.JButton BtnClear;
     private javax.swing.JButton BtnEdit;
     private javax.swing.JButton BtnExit;
@@ -262,21 +335,21 @@ public class frmBarang extends javax.swing.JInternalFrame {
     private javax.swing.JLabel LblFormBarang;
     private javax.swing.JLabel LblHarga;
     private javax.swing.JLabel LblKodeBarang;
-    private javax.swing.JLabel LblMerk;
     private javax.swing.JLabel LblNamaBarang;
-    private javax.swing.JLabel LblTahun;
-    private javax.swing.JLabel LblWarna;
+    private javax.swing.JLabel LblStok;
     private javax.swing.JPanel PnlAksi;
     private javax.swing.JPanel PnlFormBarang;
+    private javax.swing.JSpinner SpinnerStok;
     private javax.swing.JTable TblDaftarBarang;
     private javax.swing.JTextField TxtHarga;
     private javax.swing.JTextField TxtKodeBarang;
-    private javax.swing.JTextField TxtMerk;
     private javax.swing.JTextField TxtNamaBarang;
-    private javax.swing.JTextField TxtTahun;
-    private javax.swing.JTextField TxtWarna;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField TxtTotalHarga;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

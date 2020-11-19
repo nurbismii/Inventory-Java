@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
-  <NonVisualComponents>
-    <Component class="javax.swing.JMenuItem" name="jMenuItem1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jMenuItem1"/>
-      </Properties>
-    </Component>
-  </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -31,24 +24,24 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="PnlFormBarang" alignment="0" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jPanel3" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="PnlFormBarang" min="-2" max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jPanel2" max="32767" attributes="0"/>
-                  <Component id="jPanel1" max="32767" attributes="0"/>
+                  <Component id="jPanel3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -56,7 +49,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="PnlFormBarang">
+    <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -67,34 +60,34 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="444" max="-2" attributes="0"/>
-                  <Component id="LblFormBarang" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="473" max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="505" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                  <Component id="LblFormBarang" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="28" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="39" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="LblFormBarang">
+        <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trajan Pro" size="24" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="FORM BARANG"/>
+            <Property name="text" type="java.lang.String" value="form transaksi"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -109,49 +102,57 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="LblKodeBarang" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="TxtKodeBarang" min="-2" pref="228" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="LblNamaBarang" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="TxtNamaBarang" min="-2" pref="295" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="PnlAksi" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="LblHarga" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="LblStok" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="TxtHarga" pref="295" max="32767" attributes="0"/>
-                                  <Component id="SpinnerStok" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TxtTotalHarga" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblTransaksi" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblCustomer" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblKodeBarang" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblHarga" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblJumlah" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblTotalHarga" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblTanggal" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="44" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Component id="SpinJumlah" min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="TxtTanggal" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
+                          <Component id="TxtKodeBarang" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
+                          <Component id="TxtHarga" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
+                          <Component id="TxtIdCustomer" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
+                          <Component id="TxtIdTransaksi" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="TxtTotalHarga" alignment="1" min="-2" pref="248" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="PnlAksi" min="-2" pref="248" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="LblKodeBarang" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TxtKodeBarang" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="TxtIdTransaksi" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblTransaksi" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="LblNamaBarang" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TxtNamaBarang" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="TxtIdCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="TxtKodeBarang" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblKodeBarang" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="TxtTanggal" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblTanggal" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -160,15 +161,15 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="LblStok" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="SpinnerStok" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="SpinJumlah" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblJumlah" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="TxtTotalHarga" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="TxtTotalHarga" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="LblTotalHarga" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="109" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="PnlAksi" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -176,45 +177,37 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="LblKodeBarang">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Trajan Pro" size="16" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Kode Barang"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="TxtKodeBarang">
-        </Component>
-        <Component class="javax.swing.JLabel" name="LblNamaBarang">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Trajan Pro" size="16" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Nama Barang"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="TxtNamaBarang">
+        <Component class="javax.swing.JTextField" name="TxtTanggal">
         </Component>
         <Component class="javax.swing.JLabel" name="LblHarga">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trajan Pro" size="16" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="HArga"/>
+            <Property name="text" type="java.lang.String" value="Harga"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TxtHarga">
         </Component>
-        <Component class="javax.swing.JLabel" name="LblStok">
+        <Component class="javax.swing.JLabel" name="LblJumlah">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trajan Pro" size="16" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Stok"/>
+            <Property name="text" type="java.lang.String" value="Jumlah"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSpinner" name="SpinnerStok">
+        <Component class="javax.swing.JLabel" name="LblTotalHarga">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Trajan Pro" size="16" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Total Harga"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="SpinJumlah">
+        </Component>
+        <Component class="javax.swing.JTextField" name="TxtTotalHarga">
         </Component>
         <Container class="javax.swing.JPanel" name="PnlAksi">
           <Properties>
@@ -224,9 +217,12 @@
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Action">
-                  <Font PropertyName="font" name="Trajan Pro" size="18" style="0"/>
+                  <Font PropertyName="font" name="Trajan Pro" size="16" style="0"/>
                 </TitledBorder>
               </Border>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[224, 155]"/>
             </Property>
           </Properties>
 
@@ -237,31 +233,31 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="BtnTambah" max="32767" attributes="0"/>
-                          <Component id="BtnEdit" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="BtnClear" max="32767" attributes="0"/>
                           <Component id="BtnHapus" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="BtnEdit" max="32767" attributes="0"/>
+                          <Component id="BtnClear" pref="94" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="39" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="BtnTambah" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="BtnHapus" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="BtnEdit" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="BtnHapus" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="BtnClear" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -274,9 +270,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Tambah"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnTambahActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="BtnEdit">
               <Properties>
@@ -292,6 +285,9 @@
                   <Font name="Trajan Pro" size="16" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Hapus"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[103, 25]"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="BtnClear">
@@ -299,24 +295,52 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Trajan Pro" size="16" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CLear"/>
+                <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="LblTransaksi">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trajan Pro" size="16" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Total Harga"/>
+            <Property name="text" type="java.lang.String" value="ID Transaksi"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="TxtTotalHarga">
+        <Component class="javax.swing.JLabel" name="LblCustomer">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Trajan Pro" size="16" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Id Customer"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="LblKodeBarang">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Trajan Pro" size="16" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Kode Barang"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="LblTanggal">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Trajan Pro" size="16" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Tanggal"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="TxtIdTransaksi">
+        </Component>
+        <Component class="javax.swing.JTextField" name="TxtIdCustomer">
+        </Component>
+        <Component class="javax.swing.JTextField" name="TxtKodeBarang">
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="javax.swing.JPanel" name="jPanel3">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -328,18 +352,20 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="27" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="BtnCari" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="150" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jScrollPane1" min="-2" pref="590" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="BtnExit" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="BtnExit" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jTextField1" min="-2" pref="136" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -350,12 +376,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="BtnCari" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="237" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="390" max="-2" attributes="0"/>
+                  <EmptySpace pref="51" max="32767" attributes="0"/>
                   <Component id="BtnExit" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -363,16 +389,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="BtnCari">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Trajan Pro" size="16" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Cari "/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
-        </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -380,19 +396,31 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="TblDaftarBarang">
+            <Component class="javax.swing.JTable" name="TabelDaftarTransaksi">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="12">
-                    <Column editable="true" title="Kode Barang" type="java.lang.Integer"/>
-                    <Column editable="true" title="Nama Barang" type="java.lang.String"/>
-                    <Column editable="true" title="Harga" type="java.lang.Integer"/>
-                    <Column editable="true" title="Stok" type="java.lang.Integer"/>
-                    <Column editable="true" title="Total Harga" type="java.lang.Integer"/>
+                  <Table columnCount="7" rowCount="6">
+                    <Column editable="true" title="ID Transaksi" type="java.lang.Object"/>
+                    <Column editable="true" title="ID Customer" type="java.lang.Object"/>
+                    <Column editable="true" title="Kode Barang" type="java.lang.Object"/>
+                    <Column editable="true" title="Tanggal" type="java.lang.Object"/>
+                    <Column editable="true" title="Harga" type="java.lang.Object"/>
+                    <Column editable="true" title="Jumlah" type="java.lang.Object"/>
+                    <Column editable="true" title="Total Harga" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -427,10 +455,17 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jButton1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextField1">
+        </Component>
         <Component class="javax.swing.JButton" name="BtnExit">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Trajan Pro" size="16" style="1"/>
+              <Font name="Trajan Pro" size="16" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Tutup"/>
           </Properties>
