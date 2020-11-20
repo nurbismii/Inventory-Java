@@ -10,10 +10,10 @@ import java.util.Arrays;
  */
 public class frmCustomer extends javax.swing.JInternalFrame {
 
-    public Connection conn;
-    public ResultSet rs;
-    public PreparedStatement pst;
-    public Statement stat;
+    Connection conn;
+    ResultSet rs;
+    PreparedStatement pst;
+    Statement stat;
     
     public frmCustomer() throws Exception {
         initComponents();

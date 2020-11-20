@@ -226,9 +226,13 @@ public class frmMDI extends javax.swing.JFrame {
     
     private void MenuBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarangActionPerformed
         // TODO add your handling code here:
-       frmBarang frmBarang = new frmBarang();
-       frmMDI.add(frmBarang);
-       frmBarang.setVisible(true);    
+       try {
+            frmBarang frmBarang = new frmBarang();
+        frmMDI.add(frmBarang);
+        frmBarang.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error cari tahu sendiri!");
+        }    
         
     }//GEN-LAST:event_MenuBarangActionPerformed
 
@@ -266,9 +270,13 @@ public class frmMDI extends javax.swing.JFrame {
 
     private void BtnBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBarangActionPerformed
         // TODO add your handling code here:
-        frmBarang frmBarang = new frmBarang();
+        try {
+            frmBarang frmBarang = new frmBarang();
         frmMDI.add(frmBarang);
-        frmBarang.setVisible(true);      
+        frmBarang.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error cari tahu sendiri!");
+        } 
     }//GEN-LAST:event_BtnBarangActionPerformed
 
     private void BtnTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTransaksiActionPerformed
