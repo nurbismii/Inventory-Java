@@ -28,6 +28,7 @@ public class frmMDI extends javax.swing.JFrame {
     
     
     public frmMDI() {
+        super("Aplikasi Toko");
         initComponents();
            
     }
@@ -41,7 +42,7 @@ public class frmMDI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ImageIcon icon = new ImageIcon(getClass().getResource("bg-apk2.jpg"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("bg-apk4.jpg"));
         Image img = icon.getImage();
         frmMDI = new javax.swing.JDesktopPane(){
             public void paintComponent(Graphics g){
@@ -53,7 +54,6 @@ public class frmMDI extends javax.swing.JFrame {
         BtnBarang = new javax.swing.JButton();
         BtnTransaksi = new javax.swing.JButton();
         PnlTokoPenjualan = new javax.swing.JPanel();
-        LblTokoPenjulan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
@@ -109,12 +109,8 @@ public class frmMDI extends javax.swing.JFrame {
         frmMDI.add(BtnTransaksi);
         BtnTransaksi.setBounds(30, 430, 320, 140);
 
-        PnlTokoPenjualan.setBackground(new java.awt.Color(91, 128, 159));
-
-        LblTokoPenjulan.setBackground(new java.awt.Color(255, 255, 255));
-        LblTokoPenjulan.setFont(new java.awt.Font("Sitka Small", 0, 36)); // NOI18N
-        LblTokoPenjulan.setForeground(new java.awt.Color(255, 255, 255));
-        LblTokoPenjulan.setText("TOKO ABU DHABI");
+        PnlTokoPenjualan.setBackground(new java.awt.Color(240, 76, 92));
+        PnlTokoPenjualan.setOpaque(false);
 
         jLabel1.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,30 +125,24 @@ public class frmMDI extends javax.swing.JFrame {
         PnlTokoPenjualanLayout.setHorizontalGroup(
             PnlTokoPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlTokoPenjualanLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(LblTokoPenjulan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1220, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel1)
-                .addGap(65, 65, 65)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(86, 86, 86))
+                .addGap(43, 43, 43))
         );
         PnlTokoPenjualanLayout.setVerticalGroup(
             PnlTokoPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlTokoPenjualanLayout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addComponent(LblTokoPenjulan)
-                .addGap(25, 25, 25))
             .addGroup(PnlTokoPenjualanLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(PnlTokoPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         frmMDI.add(PnlTokoPenjualan);
-        PnlTokoPenjualan.setBounds(0, 0, 1920, 100);
+        PnlTokoPenjualan.setBounds(1510, 0, 360, 100);
 
         MasterData.setText("Master Data");
 
@@ -338,7 +328,6 @@ public class frmMDI extends javax.swing.JFrame {
     private javax.swing.JButton BtnBarang;
     private javax.swing.JButton BtnSupplier;
     private javax.swing.JButton BtnTransaksi;
-    private javax.swing.JLabel LblTokoPenjulan;
     private javax.swing.JMenu MasterData;
     private javax.swing.JMenuItem MenuBarang;
     private javax.swing.JMenuItem MenuCustomer;

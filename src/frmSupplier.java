@@ -90,7 +90,7 @@ public class frmSupplier extends javax.swing.JInternalFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("DATA BARANG"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("DATA SUPPLIER"));
 
         LblKodeSupplier.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblKodeSupplier.setText("Kode Supplier");
@@ -214,7 +214,7 @@ public class frmSupplier extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("DAFTAR BARANG"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("DAFTAR SUPPLIER"));
 
         BtnCari.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnCari.setText("Cari");
