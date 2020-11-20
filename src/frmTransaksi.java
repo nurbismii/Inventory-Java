@@ -234,7 +234,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID Barang", "Nama Barang", "Harga", "Stok"
+                "Kode Barang", "Nama Barang", "Harga", "Stok"
             }
         ));
         jScrollPane2.setViewportView(jTable1);
