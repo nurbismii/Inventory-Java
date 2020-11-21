@@ -369,15 +369,23 @@ public class frmBarang extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
-        // TODO add your handling code here
+        // Menambah data barang 
+        
+        int totalHarga, stok, harga;
+        
+        harga = Integer.parseInt(TxtHarga.getText());
+        stok = Integer.parseInt(TxtStok.getText());
+        totalHarga = harga * stok;
+        TxtTotalHarga.setText(Integer.toString(totalHarga));
+        
         try {
-
             String sql = "INSERT INTO tb_barang VALUES('"
                     + "" + TxtKodeBarang.getText() + "','"
                     + "" + TxtNamaBarang.getText() + "','"
-                    + "" + TxtStok.getText() + "','"
-                    + "" + TxtHarga.getText() + "','"
-                    + "" + TxtTotalHarga.getText() + "')";
+                    + "" + stok + "','"
+                    + "" + harga + "','"
+                    + "" + totalHarga + "')";
+            
             stat = conn.createStatement();
             int res = stat.executeUpdate(sql);
             if (res == 1) {
@@ -413,10 +421,9 @@ public class frmBarang extends javax.swing.JInternalFrame {
         String Harga = TblDaftarBarang.getValueAt(baris, 3).toString();
         TxtHarga.setText(Harga);
 
-
         String TotalHarga = TblDaftarBarang.getValueAt(baris, 4).toString();
         TxtTotalHarga.setText(TotalHarga);
-
+       
     }//GEN-LAST:event_TblDaftarBarangMouseClicked
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
@@ -444,16 +451,24 @@ public class frmBarang extends javax.swing.JInternalFrame {
     private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
         // TODO add your handling code here:
         TxtKodeBarang.setEditable(false);
+        
+        int totalHarga, stok, harga;
+        
+        harga = Integer.parseInt(TxtHarga.getText());
+        stok = Integer.parseInt(TxtStok.getText());
+        totalHarga = harga * stok;
+        TxtTotalHarga.setText(Integer.toString(totalHarga));
+        
         if (TxtKodeBarang.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "LENGKAPI SEMUA DATA!");
         } else {
             try {
                 String sql = "UPDATE tb_barang SET nama_barang='"
                         + TxtNamaBarang.getText()
-                        + "nama_barang" + TxtNamaBarang.getText() + "','"
-                        + "stok_barang" + TxtStok.getText() + "','"
-                        + "harga_barang" + TxtHarga.getText() + "','"
-                        + "TotalHarga" + TxtTotalHarga.getText() + "')"
+                        + "',nama_barang = '" + TxtNamaBarang.getText() 
+                        + "',stok_barang = '" + TxtStok.getText() 
+                        + "',harga_barang = '" + TxtHarga.getText() 
+                        + "',TotalHarga = '" + TxtTotalHarga.getText()
                         + "'WHERE kd_barang = '" + TxtKodeBarang.getText() + "'";
 
                 PreparedStatement ps = conn.prepareStatement(sql);
@@ -520,4 +535,8 @@ public class frmBarang extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    private String StringValueOf() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -16,9 +16,9 @@ public class frmCustomer extends javax.swing.JInternalFrame {
     Statement stat;
     
     public frmCustomer() throws Exception {
-        initComponents();
         conn = null;
         conn = DriverManager.getConnection("jdbc:mysql://localhost/db_tokoenterprise", "root", "");
+        initComponents();
         UpdateTabel();
     }
     
