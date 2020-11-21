@@ -442,6 +442,16 @@ public class frmCustomer extends javax.swing.JInternalFrame {
     private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
         // Mengedit data customer
         TxtIdCustomer.setEditable(false);
+        
+        String password = "";
+        String confirmPass = "";
+        
+        password = Arrays.toString(TxtPassword.getPassword());
+        
+        if(password.equals("") && confirmPass.equals("")){
+            JOptionPane.showMessageDialog(null, "Password wajib di isi");
+        }
+        
         if (TxtIdCustomer.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "LENGKAPI SEMUA DATA!");
         } else {

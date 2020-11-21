@@ -46,6 +46,7 @@ public class frmMDI extends javax.swing.JFrame {
         BtnSupplier = new javax.swing.JLabel();
         BtnLogin = new javax.swing.JLabel();
         BtnLogout = new javax.swing.JLabel();
+        LblAksiPanel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         MasterData = new javax.swing.JMenu();
         MenuBarang = new javax.swing.JMenuItem();
@@ -96,25 +97,31 @@ public class frmMDI extends javax.swing.JFrame {
         BtnLogout.setForeground(new java.awt.Color(255, 255, 255));
         BtnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BtnLogout.png"))); // NOI18N
 
+        LblAksiPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bg-panelAksi.jpg"))); // NOI18N
+        LblAksiPanel.setPreferredSize(new java.awt.Dimension(450, 950));
+
         javax.swing.GroupLayout PnlAksiLayout = new javax.swing.GroupLayout(PnlAksi);
         PnlAksi.setLayout(PnlAksiLayout);
         PnlAksiLayout.setHorizontalGroup(
             PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlAksiLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(BtnLogin)
+                .addGap(1, 1, 1)
+                .addComponent(BtnLogout)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(PnlAksiLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
                 .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PnlAksiLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BtnLogin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnLogout))
-                    .addGroup(PnlAksiLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(BtnBArang, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnTransaksi, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnSupplier, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(BtnBArang, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(BtnTransaksi)
+                        .addComponent(BtnSupplier)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PnlAksiLayout.createSequentialGroup()
+                    .addComponent(LblAksiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         PnlAksiLayout.setVerticalGroup(
             PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,13 +130,15 @@ public class frmMDI extends javax.swing.JFrame {
                 .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtnLogin)
                     .addComponent(BtnLogout))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                 .addComponent(BtnBArang)
-                .addGap(135, 135, 135)
+                .addGap(129, 129, 129)
                 .addComponent(BtnTransaksi)
-                .addGap(135, 135, 135)
+                .addGap(119, 119, 119)
                 .addComponent(BtnSupplier)
-                .addGap(63, 63, 63))
+                .addGap(119, 119, 119))
+            .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(LblAksiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE))
         );
 
         MasterData.setText("Master Data");
@@ -202,10 +211,11 @@ public class frmMDI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(frmMDI, javax.swing.GroupLayout.PREFERRED_SIZE, 1545, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(frmMDI, javax.swing.GroupLayout.DEFAULT_SIZE, 1247, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,6 +346,7 @@ public class frmMDI extends javax.swing.JFrame {
     private javax.swing.JLabel BtnLogout;
     private javax.swing.JLabel BtnSupplier;
     private javax.swing.JLabel BtnTransaksi;
+    private javax.swing.JLabel LblAksiPanel;
     private javax.swing.JMenu MasterData;
     private javax.swing.JMenuItem MenuBarang;
     private javax.swing.JMenuItem MenuCustomer;
