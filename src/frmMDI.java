@@ -130,15 +130,17 @@ public class frmMDI extends javax.swing.JFrame {
                 .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtnLogin)
                     .addComponent(BtnLogout))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                 .addComponent(BtnBArang)
-                .addGap(129, 129, 129)
+                .addGap(133, 133, 133)
                 .addComponent(BtnTransaksi)
                 .addGap(119, 119, 119)
                 .addComponent(BtnSupplier)
-                .addGap(119, 119, 119))
+                .addGap(106, 106, 106))
             .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(LblAksiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE))
+                .addGroup(PnlAksiLayout.createSequentialGroup()
+                    .addComponent(LblAksiPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 966, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         MasterData.setText("Master Data");
@@ -219,8 +221,10 @@ public class frmMDI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PnlAksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(frmMDI)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         pack();
