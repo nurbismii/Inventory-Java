@@ -1,4 +1,3 @@
-
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -109,12 +108,6 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
         LblKodeBarang.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblKodeBarang.setText("Kode Barang");
-
-        TxtKodeBarang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtKodeBarangActionPerformed(evt);
-            }
-        });
 
         LblNamaBarang.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblNamaBarang.setText("Nama Barang");
@@ -277,7 +270,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Kode Barang", "Nama Barang", "Stok", "Harga", "Total Harga"
+                "Kode Barang", "Nama Barang", "Harga", "Stok", "Total Harga"
             }
         ) {
             Class[] types = new Class [] {
@@ -294,6 +287,13 @@ public class frmBarang extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(TblDaftarBarang);
+        if (TblDaftarBarang.getColumnModel().getColumnCount() > 0) {
+            TblDaftarBarang.getColumnModel().getColumn(0).setHeaderValue("Kode Barang");
+            TblDaftarBarang.getColumnModel().getColumn(1).setHeaderValue("Nama Barang");
+            TblDaftarBarang.getColumnModel().getColumn(2).setHeaderValue("Harga");
+            TblDaftarBarang.getColumnModel().getColumn(3).setHeaderValue("Stok");
+            TblDaftarBarang.getColumnModel().getColumn(4).setHeaderValue("Total Harga");
+        }
 
         BtnExit.setFont(new java.awt.Font("Trajan Pro", 1, 16)); // NOI18N
         BtnExit.setText("Tutup");
@@ -319,8 +319,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(BtnCari)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -400,10 +399,6 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_BtnTambahActionPerformed
 
-    private void TxtKodeBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtKodeBarangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtKodeBarangActionPerformed
-
     private void TblDaftarBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TblDaftarBarangMouseClicked
         // TODO add your handling code here:
         int baris = TblDaftarBarang.rowAtPoint(evt.getPoint());
@@ -414,12 +409,12 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
         String namaBarang = TblDaftarBarang.getValueAt(baris, 1).toString();
         TxtNamaBarang.setText(namaBarang);
-
-        String Stok = TblDaftarBarang.getValueAt(baris, 2).toString();
-        TxtStok.setText(Stok);
         
         String Harga = TblDaftarBarang.getValueAt(baris, 3).toString();
         TxtHarga.setText(Harga);
+        
+        String Stok = TblDaftarBarang.getValueAt(baris, 2).toString();
+        TxtStok.setText(Stok);
 
         String TotalHarga = TblDaftarBarang.getValueAt(baris, 4).toString();
         TxtTotalHarga.setText(TotalHarga);

@@ -1,19 +1,24 @@
-import java.sql.*;
-import javax.swing.*;
-import javax.swing.table.*;
+import com.mysql.jdbc.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author user
  */
 public class frmCustomer extends javax.swing.JInternalFrame {
 
-    Connection conn;
-    ResultSet rs;
-    PreparedStatement pst;
+    Connection con;
     Statement stat;
+    String sql, kelas;
+    ResultSet rs;
+    java.sql.Connection conn;
+    PreparedStatement pst;
     
     public frmCustomer() throws Exception {
         conn = null;
@@ -77,7 +82,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         jCheckBoxMenuItem2.setText("jCheckBoxMenuItem2");
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/bg-apk3.jpg"))); // NOI18N
+        setFrameIcon(null);
         setOpaque(true);
 
         PnlFormCustomer.setBackground(new java.awt.Color(204, 204, 204));
@@ -481,7 +486,6 @@ public class frmCustomer extends javax.swing.JInternalFrame {
 
         String Email = TableDaftarCustomer.getValueAt(baris, 3).toString();
         TxtEmail.setText(Email);
-        
         
         String JenisStatus = TableDaftarCustomer.getValueAt(baris, 4).toString();
         if(JenisStatus.equals("admin")){
