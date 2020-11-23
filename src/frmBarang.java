@@ -27,6 +27,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form frmBarang
+     * @throws java.lang.Exception
      */
     public frmBarang() throws Exception {
         conn = null;
@@ -42,6 +43,34 @@ public class frmBarang extends javax.swing.JInternalFrame {
         TxtStok.setText("");
         TxtTotalHarga.setText("");
     }
+    
+     private void updateTabel() {
+        try {
+            String sql = "SELECT * FROM tb_barang;";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TblDaftarBarang.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[7];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("kd_barang");
+                data[1] = rs.getString("nama_barang");
+                data[2] = rs.getString("stok_barang");
+                data[3] = rs.getString("harga_barang");
+                data[4] = rs.getString("totalHarga");
+                dtm.addRow(data);
+                i++;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
+        }
+    }
+     
+     public boolean isCellEditable(int row, int column){
+         return false;
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,9 +94,9 @@ public class frmBarang extends javax.swing.JInternalFrame {
         LblStok = new javax.swing.JLabel();
         PnlAksi = new javax.swing.JPanel();
         BtnTambah = new javax.swing.JButton();
-        BtnEdit = new javax.swing.JButton();
         BtnHapus = new javax.swing.JButton();
         BtnClear = new javax.swing.JButton();
+        BtnEdit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         TxtTotalHarga = new javax.swing.JTextField();
         TxtStok = new javax.swing.JTextField();
@@ -123,22 +152,16 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
         BtnTambah.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnTambah.setText("Tambah");
+        BtnTambah.setPreferredSize(new java.awt.Dimension(100, 25));
         BtnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnTambahActionPerformed(evt);
             }
         });
 
-        BtnEdit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        BtnEdit.setText("Edit");
-        BtnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEditActionPerformed(evt);
-            }
-        });
-
         BtnHapus.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnHapus.setText("Hapus");
+        BtnHapus.setPreferredSize(new java.awt.Dimension(100, 25));
         BtnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnHapusActionPerformed(evt);
@@ -147,9 +170,19 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
         BtnClear.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnClear.setText("CLear");
+        BtnClear.setPreferredSize(new java.awt.Dimension(100, 25));
         BtnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnClearActionPerformed(evt);
+            }
+        });
+
+        BtnEdit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        BtnEdit.setText("Edit");
+        BtnEdit.setPreferredSize(new java.awt.Dimension(100, 25));
+        BtnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditActionPerformed(evt);
             }
         });
 
@@ -159,13 +192,13 @@ public class frmBarang extends javax.swing.JInternalFrame {
             PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlAksiLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BtnTambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnTambah, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BtnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         PnlAksiLayout.setVerticalGroup(
@@ -173,13 +206,13 @@ public class frmBarang extends javax.swing.JInternalFrame {
             .addGroup(PnlAksiLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnTambah)
-                    .addComponent(BtnHapus))
-                .addGap(22, 22, 22)
+                    .addComponent(BtnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnEdit)
-                    .addComponent(BtnClear))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BtnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
@@ -396,29 +429,27 @@ public class frmBarang extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Tambah  Data GAGAL! " + e.getMessage());
         }
-
     }//GEN-LAST:event_BtnTambahActionPerformed
 
     private void TblDaftarBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TblDaftarBarangMouseClicked
         // TODO add your handling code here:
+        TblDaftarBarang.setEnabled(false);
         int baris = TblDaftarBarang.rowAtPoint(evt.getPoint());
 
         String kodeBarang = TblDaftarBarang.getValueAt(baris, 0).toString();
         TxtKodeBarang.setText(kodeBarang);
-        TxtKodeBarang.setEditable(false);
 
         String namaBarang = TblDaftarBarang.getValueAt(baris, 1).toString();
         TxtNamaBarang.setText(namaBarang);
-        
+
         String Harga = TblDaftarBarang.getValueAt(baris, 3).toString();
         TxtHarga.setText(Harga);
-        
+  
         String Stok = TblDaftarBarang.getValueAt(baris, 2).toString();
         TxtStok.setText(Stok);
 
         String TotalHarga = TblDaftarBarang.getValueAt(baris, 4).toString();
-        TxtTotalHarga.setText(TotalHarga);
-       
+        TxtTotalHarga.setText(TotalHarga); 
     }//GEN-LAST:event_TblDaftarBarangMouseClicked
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
@@ -480,29 +511,6 @@ public class frmBarang extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BtnEditActionPerformed
 
-    private void updateTabel() {
-        try {
-            String sql = "SELECT * FROM tb_barang;";
-            pst = conn.prepareStatement(sql);
-            rs = pst.executeQuery();
-            DefaultTableModel dtm = (DefaultTableModel) TblDaftarBarang.getModel();
-            dtm.setRowCount(0);
-            String[] data = new String[7];
-            int i = 1;
-
-            while (rs.next()) {
-                data[0] = rs.getString("kd_barang");
-                data[1] = rs.getString("nama_barang");
-                data[2] = rs.getString("stok_barang");
-                data[3] = rs.getString("harga_barang");
-                data[4] = rs.getString("totalHarga");
-                dtm.addRow(data);
-                i++;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCari;
     private javax.swing.JButton BtnClear;

@@ -244,9 +244,15 @@ public class frmMDI extends javax.swing.JFrame {
 
     private void MenuSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSupplierActionPerformed
         // TODO add your handling code here:
-        frmSupplier frmSupplier = new frmSupplier();
-        frmMDI.add(frmSupplier);
-        frmSupplier.setVisible(true);    
+        try{
+            frmSupplier frmSupplier = new frmSupplier();
+            frmMDI.add(frmSupplier);
+            frmSupplier.setVisible(true);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem !!!" + e.getMessage());
+        }
+            
         
     }//GEN-LAST:event_MenuSupplierActionPerformed
 

@@ -27,7 +27,32 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         UpdateTabel();
     }
     
-    
+    private void UpdateTabel() {
+        try {
+            String sql = "SELECT * FROM tb_customer;";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TableDaftarCustomer.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[7];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("id_customer");
+                data[1] = rs.getString("nama_customer");
+                data[2] = rs.getString("alamat_customer");
+                data[3] = rs.getString("email_customer");
+                data[4] = rs.getString("HakAkses");
+                data[5] = rs.getString("password");
+                data[6] = rs.getString("password_conf");
+                dtm.addRow(data);
+                i++;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
+        }
+    }
+      
     public void clear(){
         TxtIdCustomer.setText("");
         TxtNamaLengkap.setText("");
@@ -179,20 +204,21 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)))
+                    .addComponent(BtnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                .addContainerGap())
         );
         PnlAksiLayout.setVerticalGroup(
             PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlAksiLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnTambah)
                     .addComponent(BtnEdit))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnClear)
-                    .addComponent(BtnHapus))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(BtnHapus)
+                    .addComponent(BtnClear))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -202,32 +228,36 @@ public class frmCustomer extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LblIdCustomer)
-                    .addComponent(LblAlamat)
-                    .addComponent(LblEmail)
-                    .addComponent(LblAkses)
-                    .addComponent(LblPassword)
-                    .addComponent(LblConfirmPassword)
-                    .addComponent(LblNamaLengkap))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TxtNamaLengkap)
+                            .addComponent(LblIdCustomer)
+                            .addComponent(LblAlamat)
+                            .addComponent(LblEmail)
+                            .addComponent(LblAkses)
+                            .addComponent(LblPassword)
+                            .addComponent(LblConfirmPassword)
+                            .addComponent(LblNamaLengkap))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TxtIdCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TxtNamaLengkap)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(TxtIdCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 61, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(LblMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(ComboAkses, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(TxtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                                        .addComponent(TxtAlamat)
+                                        .addComponent(TxtPassword)
+                                        .addComponent(TxtPasswordConfirm))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LblMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(ComboAkses, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TxtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                                .addComponent(TxtAlamat)
-                                .addComponent(PnlAksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(TxtPassword)
-                                .addComponent(TxtPasswordConfirm)))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -263,7 +293,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                     .addComponent(TxtPasswordConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(LblMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(48, 48, 48)
                 .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -370,7 +400,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -482,11 +512,11 @@ public class frmCustomer extends javax.swing.JInternalFrame {
 
     private void TableDaftarCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableDaftarCustomerMouseClicked
         // ketika sebuah kolom pada tabel di pilih
+        TableDaftarCustomer.setEnabled(false);
         int baris = TableDaftarCustomer.rowAtPoint(evt.getPoint());
 
         String IdCustomer = TableDaftarCustomer.getValueAt(baris, 0).toString();
         TxtIdCustomer.setText(IdCustomer);
-        TxtIdCustomer.setEditable(false);
 
         String namaLengkap = TableDaftarCustomer.getValueAt(baris, 1).toString();
         TxtNamaLengkap.setText(namaLengkap);
@@ -517,32 +547,6 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         clear();
     }//GEN-LAST:event_BtnClearActionPerformed
-
-    private void UpdateTabel() {
-        try {
-            String sql = "SELECT * FROM tb_customer;";
-            pst = conn.prepareStatement(sql);
-            rs = pst.executeQuery();
-            DefaultTableModel dtm = (DefaultTableModel) TableDaftarCustomer.getModel();
-            dtm.setRowCount(0);
-            String[] data = new String[7];
-            int i = 1;
-
-            while (rs.next()) {
-                data[0] = rs.getString("id_customer");
-                data[1] = rs.getString("nama_customer");
-                data[2] = rs.getString("alamat_customer");
-                data[3] = rs.getString("email_customer");
-                data[4] = rs.getString("HakAkses");
-                data[5] = rs.getString("password");
-                data[6] = rs.getString("password_conf");
-                dtm.addRow(data);
-                i++;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCari;
