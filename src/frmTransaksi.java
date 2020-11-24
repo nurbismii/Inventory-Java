@@ -1,3 +1,13 @@
+import com.mysql.jdbc.Connection;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,12 +19,45 @@
  * @author user
  */
 public class frmTransaksi extends javax.swing.JInternalFrame {
-
+    
+    Connection con;
+    Statement stat;
+    String sql, kelas;
+    ResultSet rs;
+    java.sql.Connection conn;
+    PreparedStatement pst;
     /**
      * Creates new form frmTransaksi
      */
-    public frmTransaksi() {
+    public frmTransaksi() throws Exception {
         initComponents();
+        conn = null;
+        conn = DriverManager.getConnection("jdbc:mysql://localhost/db_tokoenterprise", "root", "");
+        updateTabel();
+    }
+    
+    private void updateTabel(){
+         try {
+            String sql = "SELECT * FROM tb_barang;";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TblDaftarBarang.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[5];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("kd_barang");
+                data[1] = rs.getString("nama_barang");
+                data[2] = rs.getString("stok_barang");
+                data[3] = rs.getString("harga_barang");
+                data[4] = rs.getString("totalHarga");
+                dtm.addRow(data);
+                i++;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
+        }
     }
 
     /**
@@ -52,7 +95,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TblDaftarBarang = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelDaftarTransaksi = new javax.swing.JTable();
@@ -223,7 +266,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
         jButton1.setText("Cari");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TblDaftarBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -237,7 +280,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                 "Kode Barang", "Nama Barang", "Harga", "Stok"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(TblDaftarBarang);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -381,6 +424,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     private javax.swing.JPanel PnlAksi;
     private javax.swing.JSpinner SpinJumlah;
     private javax.swing.JTable TabelDaftarTransaksi;
+    private javax.swing.JTable TblDaftarBarang;
     private javax.swing.JTextField TxtHarga;
     private javax.swing.JTextField TxtIdCustomer;
     private javax.swing.JTextField TxtIdTransaksi;
@@ -396,7 +440,6 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables

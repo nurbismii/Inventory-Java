@@ -1,5 +1,7 @@
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import java.sql.*;
 import javax.swing.*;
@@ -22,10 +24,22 @@ public class frmMDI extends javax.swing.JFrame {
      */
     final static String StringDriver = "com.mysql.jdbc.Driver";
     final static String StringConnection = "jdbc:mysql://localhost:3306/db_tokoenterprise?user=root&password=";
+    
+    Dimension dimensi = Toolkit.getDefaultToolkit().getScreenSize();
 
     public frmMDI() {
         super("Aplikasi Toko");
-        initComponents();      
+        initComponents();
+        setBounds();
+    }
+    
+    public void setBounds(){
+            this.setBounds(0, 0, 1400, 950);
+            this.setLocation(dimensi.width / 2
+                - this.getWidth() / 2, dimensi.height / 2
+                - this.getHeight() / 2);
+            this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            this.setAlwaysOnTop(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -54,11 +68,9 @@ public class frmMDI extends javax.swing.JFrame {
         MenuSupplier = new javax.swing.JMenuItem();
         MenuCustomer = new javax.swing.JMenuItem();
         Aplikasi = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         MenuExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -181,19 +193,13 @@ public class frmMDI extends javax.swing.JFrame {
 
         Aplikasi.setText("Aplikasi");
 
-        jMenuItem1.setText("Inventori Barang");
-        Aplikasi.add(jMenuItem1);
-
         jMenu2.setText("Export");
 
-        jMenuItem2.setText("Transaksi Penjualan");
+        jMenuItem2.setText("Transaksi");
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("Barang");
         jMenu2.add(jMenuItem3);
-
-        jMenuItem4.setText("Supplier");
-        jMenu2.add(jMenuItem4);
 
         Aplikasi.add(jMenu2);
 
@@ -235,44 +241,55 @@ public class frmMDI extends javax.swing.JFrame {
        try {
             frmBarang frmBarang = new frmBarang();
             frmMDI.add(frmBarang);
-            frmBarang.setVisible(true);
+            frmBarang.setBounds((frmMDI.getWidth() / 2) 
+                            - (frmBarang.getWidth() / 2), (frmMDI.getHeight() / 2) 
+                                    - (frmBarang.getHeight() / 2), frmBarang.getWidth(), frmBarang.getHeight());
+            frmBarang.setVisible(true);  
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        }    
-        
+        }      
     }//GEN-LAST:event_MenuBarangActionPerformed
 
     private void MenuSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSupplierActionPerformed
         // TODO add your handling code here:
-        try{
+        try {
             frmSupplier frmSupplier = new frmSupplier();
             frmMDI.add(frmSupplier);
-            frmSupplier.setVisible(true);
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem !!!" + e.getMessage());
-        }
-            
-        
+            frmSupplier.setBounds((frmMDI.getWidth() / 2) 
+                            - (frmSupplier.getWidth() / 2), (frmMDI.getHeight() / 2) 
+                                    - (frmSupplier.getHeight() / 2), frmSupplier.getWidth(), frmSupplier.getHeight());
+            frmSupplier.setVisible(true);  
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
+        } 
     }//GEN-LAST:event_MenuSupplierActionPerformed
 
     private void MenuCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCustomerActionPerformed
         // TODO add your handling code here:
-         try{
-             frmCustomer frmCustomer = new frmCustomer();
-             frmMDI.add(frmCustomer);
-             frmCustomer.setVisible(true);
-         }catch(Exception e){
-             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-         }
-
+         try {
+            frmCustomer frmCustomer = new frmCustomer();
+            frmMDI.add(frmCustomer);
+            frmCustomer.setBounds((frmMDI.getWidth() / 2) 
+                            - (frmCustomer.getWidth() / 2), (frmMDI.getHeight() / 2) 
+                                    - (frmCustomer.getHeight() / 2), frmCustomer.getWidth(), frmCustomer.getHeight());
+            frmCustomer.setVisible(true);  
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
+        } 
     }//GEN-LAST:event_MenuCustomerActionPerformed
 
     private void MenuTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuTransaksiActionPerformed
         // TODO add your handling code here:
-        frmTransaksi frmTransaksi = new frmTransaksi();
-        frmMDI.add(frmTransaksi);
-        frmTransaksi.setVisible(true);    
+        try {
+            frmTransaksi frmTransaksi = new frmTransaksi();
+            frmMDI.add(frmTransaksi);
+            frmTransaksi.setBounds((frmMDI.getWidth() / 2) 
+                            - (frmTransaksi.getWidth() / 2), (frmMDI.getHeight() / 2) 
+                                    - (frmTransaksi.getHeight() / 2), frmTransaksi.getWidth(), frmTransaksi.getHeight());
+            frmTransaksi.setVisible(true);  
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
+        }     
     }//GEN-LAST:event_MenuTransaksiActionPerformed
 
     private void MenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuExitActionPerformed
@@ -285,10 +302,13 @@ public class frmMDI extends javax.swing.JFrame {
          try {
             frmBarang frmBarang = new frmBarang();
             frmMDI.add(frmBarang);
-            frmBarang.setVisible(true);
+            frmBarang.setBounds((frmMDI.getWidth() / 2) 
+                            - (frmBarang.getWidth() / 2), (frmMDI.getHeight() / 2) 
+                                    - (frmBarang.getHeight() / 2), frmBarang.getWidth(), frmBarang.getHeight());
+            frmBarang.setVisible(true);  
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        } 
+        }    
     }//GEN-LAST:event_BtnBArangMouseClicked
 
     private void BtnTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnTransaksiMouseClicked
@@ -296,6 +316,9 @@ public class frmMDI extends javax.swing.JFrame {
         try {
             frmTransaksi frmTransaksi = new frmTransaksi();
             frmMDI.add(frmTransaksi);
+            frmTransaksi.setBounds((frmMDI.getWidth() / 2) 
+                            - (frmTransaksi.getWidth() / 2), (frmMDI.getHeight() / 2) 
+                                    - (frmTransaksi.getHeight() / 2), frmTransaksi.getWidth(), frmTransaksi.getHeight());
             frmTransaksi.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
@@ -307,6 +330,9 @@ public class frmMDI extends javax.swing.JFrame {
         try {
             frmSupplier frmSupplier = new frmSupplier();
             frmMDI.add(frmSupplier);
+            frmSupplier.setBounds((frmMDI.getWidth() / 2) 
+                            - (frmSupplier.getWidth() / 2), (frmMDI.getHeight() / 2) 
+                                    - (frmSupplier.getHeight() / 2), frmSupplier.getWidth(), frmSupplier.getHeight());
             frmSupplier.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
@@ -366,10 +392,8 @@ public class frmMDI extends javax.swing.JFrame {
     private javax.swing.JPanel PnlAksi;
     private javax.swing.JDesktopPane frmMDI;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
