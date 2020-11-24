@@ -119,15 +119,19 @@
                   </Group>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                          <Component id="SpinJumlah" min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="TxtTanggal" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
-                          <Component id="TxtKodeBarang" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
-                          <Component id="TxtHarga" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
-                          <Component id="TxtIdCustomer" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
-                          <Component id="TxtIdTransaksi" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                              <Component id="TxtTanggal" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
+                              <Component id="TxtHarga" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
+                              <Component id="TxtIdTransaksi" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="TxtTotalHarga" alignment="1" min="-2" pref="248" max="-2" attributes="0"/>
+                          <Component id="TxtJumlah" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="TxtTotalHarga" alignment="1" min="-2" pref="248" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="comboKodeBarang" alignment="0" pref="103" max="32767" attributes="0"/>
+                          <Component id="comboCustomer" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -148,13 +152,13 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="TxtIdCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="LblCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="TxtKodeBarang" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="LblKodeBarang" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboKodeBarang" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -167,9 +171,9 @@
                       <Component id="LblHarga" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="SpinJumlah" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="LblJumlah" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="LblJumlah" min="-2" max="-2" attributes="0"/>
+                      <Component id="TxtJumlah" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -212,8 +216,6 @@
             <Property name="text" type="java.lang.String" value="Total Harga"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSpinner" name="SpinJumlah">
-        </Component>
         <Component class="javax.swing.JTextField" name="TxtTotalHarga">
         </Component>
         <Container class="javax.swing.JPanel" name="PnlAksi">
@@ -239,7 +241,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="BtnTambah" max="32767" attributes="0"/>
+                          <Component id="BtnBeli" max="32767" attributes="0"/>
                           <Component id="BtnHapus" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -247,16 +249,16 @@
                           <Component id="BtnEdit" max="32767" attributes="0"/>
                           <Component id="BtnClear" pref="94" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="49" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="39" max="32767" attributes="0"/>
+                      <EmptySpace pref="32" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="BtnTambah" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="BtnBeli" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="BtnEdit" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -270,13 +272,16 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="BtnTambah">
+            <Component class="javax.swing.JButton" name="BtnBeli">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Trajan Pro" size="16" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tambah"/>
+                <Property name="text" type="java.lang.String" value="Beli"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnBeliActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="BtnEdit">
               <Properties>
@@ -341,9 +346,21 @@
         </Component>
         <Component class="javax.swing.JTextField" name="TxtIdTransaksi">
         </Component>
-        <Component class="javax.swing.JTextField" name="TxtIdCustomer">
+        <Component class="javax.swing.JTextField" name="TxtJumlah">
         </Component>
-        <Component class="javax.swing.JTextField" name="TxtKodeBarang">
+        <Component class="javax.swing.JComboBox" name="comboCustomer">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="comboKodeBarang">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -403,7 +420,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tabBarang">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="7">
@@ -506,7 +523,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="TabelDaftarTransaksi">
+            <Component class="javax.swing.JTable" name="tabTransaksi">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="7" rowCount="7">

@@ -1,16 +1,18 @@
+
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.table.*;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author user
@@ -25,7 +27,7 @@ public class frmMDI extends javax.swing.JFrame {
 
     public frmMDI() {
         super("Aplikasi Toko");
-        initComponents();      
+        initComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -229,50 +231,55 @@ public class frmMDI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void MenuBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarangActionPerformed
         // TODO add your handling code here:
-       try {
+        try {
             frmBarang frmBarang = new frmBarang();
             frmMDI.add(frmBarang);
             frmBarang.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        }    
-        
+        }
+
     }//GEN-LAST:event_MenuBarangActionPerformed
 
     private void MenuSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSupplierActionPerformed
         // TODO add your handling code here:
-        try{
+        try {
             frmSupplier frmSupplier = new frmSupplier();
             frmMDI.add(frmSupplier);
             frmSupplier.setVisible(true);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem !!!" + e.getMessage());
         }
-            
-        
+
+
     }//GEN-LAST:event_MenuSupplierActionPerformed
 
     private void MenuCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCustomerActionPerformed
         // TODO add your handling code here:
-         try{
-             frmCustomer frmCustomer = new frmCustomer();
-             frmMDI.add(frmCustomer);
-             frmCustomer.setVisible(true);
-         }catch(Exception e){
-             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-         }
+        try {
+            frmCustomer frmCustomer = new frmCustomer();
+            frmMDI.add(frmCustomer);
+            frmCustomer.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
+        }
 
     }//GEN-LAST:event_MenuCustomerActionPerformed
 
     private void MenuTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuTransaksiActionPerformed
         // TODO add your handling code here:
-        frmTransaksi frmTransaksi = new frmTransaksi();
-        frmMDI.add(frmTransaksi);
-        frmTransaksi.setVisible(true);    
+        frmTransaksi frmTransaksi;
+        try {
+            frmTransaksi = new frmTransaksi();
+            frmMDI.add(frmTransaksi);
+            frmTransaksi.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(frmMDI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_MenuTransaksiActionPerformed
 
     private void MenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuExitActionPerformed
@@ -282,13 +289,13 @@ public class frmMDI extends javax.swing.JFrame {
 
     private void BtnBArangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBArangMouseClicked
         // Modify Button Barang
-         try {
+        try {
             frmBarang frmBarang = new frmBarang();
             frmMDI.add(frmBarang);
             frmBarang.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        } 
+        }
     }//GEN-LAST:event_BtnBArangMouseClicked
 
     private void BtnTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnTransaksiMouseClicked
@@ -299,7 +306,7 @@ public class frmMDI extends javax.swing.JFrame {
             frmTransaksi.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        } 
+        }
     }//GEN-LAST:event_BtnTransaksiMouseClicked
 
     private void BtnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSupplierMouseClicked
@@ -310,7 +317,7 @@ public class frmMDI extends javax.swing.JFrame {
             frmSupplier.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        } 
+        }
     }//GEN-LAST:event_BtnSupplierMouseClicked
 
     /**
@@ -339,8 +346,7 @@ public class frmMDI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(frmMDI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
