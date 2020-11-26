@@ -3,7 +3,6 @@ import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,8 +33,10 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     public frmTransaksi() throws Exception {
         conn = null;
         conn = DriverManager.getConnection("jdbc:mysql://localhost/db_tokoenterprise", "root", "");
-        updateTabel();
         initComponents();
+        updateTabelBarang();
+        updateTabelTransaksi();
+        kdBarangFromDataBaseToComboBox();
     }
 
     public void clear() {
@@ -46,22 +47,23 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         TxtTotalHarga.setText("");
     }
 
-    public void idCustomerFromDataBaseToComboBox() {
+    public void kdBarangFromDataBaseToComboBox() {
         try {
-            String query = "SELECT id_customer FROM tb_customer ";
-            stat = conn.createStatement();
-            int res = stat.executeUpdate(sql);
+            String query = "SELECT * FROM tb_barang ";
+            //stat = conn.createStatement();
+            //int res = stat.executeUpdate(sql);
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
 
-            comboCustomer.addItem("-ID-");
             while (rs.next()) {
-                comboCustomer.addItem(rs.getString("idCustomer"));
+                comboKodeBarang.addItem(rs.getString("kd_barang"));
             }
 
             rs.last();
             int jumlahdata = rs.getRow();
             rs.first();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
 
         }
     }
@@ -70,9 +72,9 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         return false;
     }
 
-    private void updateTabel() {
+    private void updateTabelBarang() {
         try {
-            String sql = "SELECT * FROM tb_transaksi;";
+            String sql = "SELECT * FROM tb_barang;";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             DefaultTableModel dtm = (DefaultTableModel) tabBarang.getModel();
@@ -83,8 +85,34 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             while (rs.next()) {
                 data[0] = rs.getString("kd_barang");
                 data[1] = rs.getString("nama_barang");
-                data[2] = rs.getString("harga_barang");
-                data[3] = rs.getString("stok_barang");
+                data[2] = rs.getString("stok_barang");
+                data[3] = rs.getString("harga_barang");
+                dtm.addRow(data);
+                i++;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error " + e.getMessage());
+        }
+    }
+
+    private void updateTabelTransaksi() {
+        try {
+            String sql = "SELECT * FROM tb_transaksi;";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) tabTransaksi.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[6];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("id_transaksi");
+                data[1] = rs.getString("id_customer");
+                data[2] = rs.getString("kode_barang");
+                data[3] = rs.getString("jumlah_barang");
+                data[4] = rs.getString("harga");
+                data[5] = rs.getString("total");
                 dtm.addRow(data);
                 i++;
             }
@@ -114,7 +142,6 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         TxtTotalHarga = new javax.swing.JTextField();
         PnlAksi = new javax.swing.JPanel();
         BtnBeli = new javax.swing.JButton();
-        BtnEdit = new javax.swing.JButton();
         BtnHapus = new javax.swing.JButton();
         BtnClear = new javax.swing.JButton();
         LblTransaksi = new javax.swing.JLabel();
@@ -123,7 +150,6 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         LblTanggal = new javax.swing.JLabel();
         TxtIdTransaksi = new javax.swing.JTextField();
         TxtJumlah = new javax.swing.JTextField();
-        comboCustomer = new javax.swing.JComboBox();
         comboKodeBarang = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -184,15 +210,17 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             }
         });
 
-        BtnEdit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        BtnEdit.setText("Edit");
-
         BtnHapus.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnHapus.setText("Hapus");
         BtnHapus.setMaximumSize(new java.awt.Dimension(103, 25));
 
         BtnClear.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnClear.setText("Clear");
+        BtnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PnlAksiLayout = new javax.swing.GroupLayout(PnlAksi);
         PnlAksi.setLayout(PnlAksiLayout);
@@ -204,18 +232,14 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                     .addComponent(BtnBeli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BtnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+                .addComponent(BtnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         PnlAksiLayout.setVerticalGroup(
             PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlAksiLayout.createSequentialGroup()
                 .addContainerGap(32, Short.MAX_VALUE)
-                .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnBeli)
-                    .addComponent(BtnEdit))
+                .addComponent(BtnBeli)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PnlAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,6 +258,8 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
         LblTanggal.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblTanggal.setText("Tanggal");
+
+        comboKodeBarang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Kode-" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -258,9 +284,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                             .addComponent(TxtIdTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(TxtTotalHarga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(TxtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(comboKodeBarang, javax.swing.GroupLayout.Alignment.LEADING, 0, 103, Short.MAX_VALUE)
-                        .addComponent(comboCustomer, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(comboKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -275,9 +299,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                     .addComponent(TxtIdTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LblTransaksi))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LblCustomer)
-                    .addComponent(comboCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(LblCustomer)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LblKodeBarang)
@@ -366,6 +388,11 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                 "ID Transaksi", "ID Customer", "Kode Barang", "Tanggal", "Harga", "Jumlah", "Total Harga"
             }
         ));
+        tabTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabTransaksiMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabTransaksi);
 
         jButton2.setText("Cari");
@@ -460,9 +487,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         try {
             String sql = "INSERT INTO tb_transaksi VALUES('"
                     + "" + TxtIdTransaksi.getText() + "','"
-                    + "" + comboCustomer.getSelectedIndex() + "','"
                     + "" + comboKodeBarang.getSelectedIndex() + "','"
-
                     + "" + harga + "','"
                     + "" + jumlah + "','"
                     + "" + totalHarga + "')";
@@ -471,7 +496,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             int res = stat.executeUpdate(sql);
             if (res == 1) {
                 javax.swing.JOptionPane.showMessageDialog(null, "Barang Berhasil Dibeli! !");
-                updateTabel();
+                updateTabelTransaksi();
                 clear();
             }
 
@@ -480,11 +505,36 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BtnBeliActionPerformed
 
+    private void BtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClearActionPerformed
+        // TODO add your handling code here:
+        clear();
+    }//GEN-LAST:event_BtnClearActionPerformed
+
+    private void tabTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabTransaksiMouseClicked
+        // TODO add your handling code here:
+        tabTransaksi.setEnabled(false);
+        int baris = tabTransaksi.rowAtPoint(evt.getPoint());
+
+        String idTransaksi = tabTransaksi.getValueAt(baris, 0).toString();
+        TxtIdTransaksi.setText(idTransaksi);
+
+        String tanggal = tabTransaksi.getValueAt(baris, 3).toString();
+        TxtTanggal.setText(tanggal);
+
+        String Harga = tabTransaksi.getValueAt(baris, 4).toString();
+        TxtHarga.setText(Harga);
+  
+        String jumlah = tabTransaksi.getValueAt(baris, 5).toString();
+        TxtJumlah.setText(jumlah);
+
+        String TotalHarga = tabTransaksi.getValueAt(baris, 6).toString();
+        TxtTotalHarga.setText(TotalHarga); 
+    }//GEN-LAST:event_tabTransaksiMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBeli;
     private javax.swing.JButton BtnClear;
-    private javax.swing.JButton BtnEdit;
     private javax.swing.JButton BtnExit;
     private javax.swing.JButton BtnHapus;
     private javax.swing.JLabel LblCustomer;
@@ -500,7 +550,6 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     private javax.swing.JTextField TxtJumlah;
     private javax.swing.JTextField TxtTanggal;
     private javax.swing.JTextField TxtTotalHarga;
-    private javax.swing.JComboBox comboCustomer;
     private javax.swing.JComboBox comboKodeBarang;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
