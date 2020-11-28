@@ -1,6 +1,5 @@
 import com.mysql.jdbc.Connection;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.HeadlessException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,7 +64,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
                 dtm.addRow(data);
                 i++;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
         }
     }
@@ -418,12 +417,12 @@ public class frmBarang extends javax.swing.JInternalFrame {
             stat = conn.createStatement();
             int res = stat.executeUpdate(sql);
             if (res == 1) {
-                javax.swing.JOptionPane.showMessageDialog(null, "Data Barang Berhasil ditambah !");
+                JOptionPane.showMessageDialog(null, "Data Barang Berhasil ditambah !");
                 updateTabel();
                 clear();
             }
 
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Tambah  Data GAGAL! " + e.getMessage());
         }
     }//GEN-LAST:event_BtnTambahActionPerformed
