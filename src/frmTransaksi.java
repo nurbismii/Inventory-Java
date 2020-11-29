@@ -39,11 +39,17 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         updateTabelBarang();
         updateTabelTransaksi();
         TxtTotalHarga.setEditable(false);
+        TxtIdTransaksi.setEditable(false);
 
+    }
+    public void autoIncrement(){
+        int i,a,b;
+        for(i=0; i >= 2; i+= 1){
+            
+        }
     }
 
     public void clear() {
-        TxtIdTransaksi.setText("");
         txtIdCustomer.setText("");
         txtKodeBarang.setText("");
         TxtHarga.setText("");
@@ -488,8 +494,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         String tanggal = String.valueOf(fm.format(JTanggal.getDate()));
 
         try {
-            String sql = "INSERT INTO tb_transaksi VALUES('"
-                    + "" + TxtIdTransaksi.getText() + "','"
+            String sql = "INSERT INTO tb_transaksi VALUES(null,'"
                     + "" + txtIdCustomer.getText() + "','"
                     + "" + txtKodeBarang.getText() + "','"
                     + "" + tanggal + "','"
