@@ -30,7 +30,7 @@ public class frmMDI extends javax.swing.JFrame {
     public frmMDI() {
         super("Aplikasi Toko");
         initComponents();
-        setBounds();
+        //setBounds();
     }
     
     public void setBounds(){
@@ -38,10 +38,10 @@ public class frmMDI extends javax.swing.JFrame {
             this.setLocation(dimensi.width / 2
                 - this.getWidth() / 2, dimensi.height / 2
                 - this.getHeight() / 2);
-            this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            this.setDefaultCloseOperation(EXIT_ON_CLOSE);
             this.setAlwaysOnTop(true);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

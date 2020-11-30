@@ -49,7 +49,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                 dtm.addRow(data);
                 i++;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
         }
     }
@@ -441,7 +441,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
             stat = conn.createStatement();
             int res = stat.executeUpdate(sql);
              if (res==1){
-                JOptionPane.showMessageDialog(null,"Data Customer Berhasil ditambah !");
+                javax.swing.JOptionPane.showMessageDialog(null,"Data Customer Berhasil ditambah !");
                 UpdateTabel();
                 clear();
             }
@@ -465,7 +465,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                 
             }
             }
-        catch(HeadlessException | SQLException e){
+        catch(Exception e){
             JOptionPane.showMessageDialog(null, "Data gagal di hapus" + e.getMessage());
         }
     }//GEN-LAST:event_BtnHapusActionPerformed
