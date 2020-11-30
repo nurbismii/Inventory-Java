@@ -35,7 +35,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
             rs = pst.executeQuery();
             DefaultTableModel dtm = (DefaultTableModel) TableDaftarCustomer.getModel();
             dtm.setRowCount(0);
-            String[] data = new String[7];
+            String[] data = new String[5];
             int i = 1;
 
             while (rs.next()) {
@@ -43,9 +43,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                 data[1] = rs.getString("nama_customer");
                 data[2] = rs.getString("alamat_customer");
                 data[3] = rs.getString("email_customer");
-                data[4] = rs.getString("HakAkses");
-                data[5] = rs.getString("password");
-                data[6] = rs.getString("password_conf");
+                data[4] = rs.getString("password");
                 dtm.addRow(data);
                 i++;
             }
@@ -60,7 +58,6 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         TxtAlamat.setText("");
         TxtEmail.setText("");
         TxtPassword.setText("");
-        TxtPasswordConfirm.setText("");
     }
  
     @SuppressWarnings("unchecked")
@@ -75,12 +72,9 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         TxtAlamat = new javax.swing.JTextField();
         TxtEmail = new javax.swing.JTextField();
-        LblAkses = new javax.swing.JLabel();
         LblIdCustomer = new javax.swing.JLabel();
-        ComboAkses = new javax.swing.JComboBox<>();
         LblPassword = new javax.swing.JLabel();
         LblNamaLengkap = new javax.swing.JLabel();
-        LblConfirmPassword = new javax.swing.JLabel();
         LblAlamat = new javax.swing.JLabel();
         LblEmail = new javax.swing.JLabel();
         TxtIdCustomer = new javax.swing.JTextField();
@@ -91,7 +85,6 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         BtnHapus = new javax.swing.JButton();
         BtnClear = new javax.swing.JButton();
         TxtPassword = new javax.swing.JPasswordField();
-        TxtPasswordConfirm = new javax.swing.JPasswordField();
         LblMatch = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -135,22 +128,14 @@ public class frmCustomer extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("DATA CUSTOMER"));
 
-        LblAkses.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        LblAkses.setText("Akses");
-
         LblIdCustomer.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblIdCustomer.setText("ID");
-
-        ComboAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user" }));
 
         LblPassword.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblPassword.setText("Password");
 
         LblNamaLengkap.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblNamaLengkap.setText("Nama Lengkap");
-
-        LblConfirmPassword.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        LblConfirmPassword.setText("Confirm Password");
 
         LblAlamat.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblAlamat.setText("Alamat");
@@ -234,10 +219,8 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                             .addComponent(LblIdCustomer)
                             .addComponent(LblAlamat)
                             .addComponent(LblEmail)
-                            .addComponent(LblAkses)
-                            .addComponent(LblPassword)
-                            .addComponent(LblConfirmPassword)
                             .addComponent(LblNamaLengkap))
+                        .addGap(46, 46, 46)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
@@ -246,19 +229,18 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(TxtIdCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 61, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(LblMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(ComboAkses, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TxtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                                        .addComponent(TxtAlamat)
-                                        .addComponent(TxtPassword)
-                                        .addComponent(TxtPasswordConfirm))))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(LblMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(TxtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                                    .addComponent(TxtAlamat)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(LblPassword)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TxtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -282,17 +264,9 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                     .addComponent(LblEmail))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ComboAkses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LblAkses))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LblPassword)
-                    .addComponent(TxtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LblConfirmPassword)
-                    .addComponent(TxtPasswordConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                    .addComponent(TxtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LblPassword))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LblMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,19 +277,19 @@ public class frmCustomer extends javax.swing.JInternalFrame {
 
         TableDaftarCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nama Lengkap", "Alamat", "Email", "Akses"
+                "ID", "Nama Lengkap", "Alamat", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -401,7 +375,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -417,27 +391,12 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         
         try {
 
-            String hakAkses = "";
-            
-            int pilihan = 0;
-
-            pilihan = ComboAkses.getSelectedIndex();
-
-            if (pilihan == 0) {
-                hakAkses = "admin";
-            }
-            if (pilihan == 1) {
-                hakAkses = "user";
-            }
-
             String sql = "INSERT INTO tb_customer VALUES('" 
                     + "" + TxtIdCustomer.getText() + "','"
                     + "" + TxtNamaLengkap.getText() + "','"
                     + "" + TxtAlamat.getText() + "','"
                     + "" + TxtEmail.getText() + "','"
-                    + "" + hakAkses + "','"
-                    + "" + Arrays.toString(TxtPassword.getPassword()) + "','"
-                    + "" + Arrays.toString(TxtPasswordConfirm.getPassword()) + "')";
+                    + "" + Arrays.toString(TxtPassword.getPassword()) + "')";
             stat = conn.createStatement();
             int res = stat.executeUpdate(sql);
              if (res==1){
@@ -475,15 +434,14 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         TxtIdCustomer.setEditable(false);
         
         String password = "";
-        String confirmPass = "";
         
         password = Arrays.toString(TxtPassword.getPassword());
         
-        if(password.equals("") && confirmPass.equals("")){
+        if(password.equals("")){
             JOptionPane.showMessageDialog(null, "Password wajib di isi");
         }
         
-        if (TxtIdCustomer.getText().equals("")) {
+        else if (TxtIdCustomer.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "LENGKAPI SEMUA DATA!");
         } else {
             try {
@@ -492,9 +450,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                         + "',nama_customer = '" + TxtNamaLengkap.getText() 
                         + "',alamat_customer = '" + TxtAlamat.getText() 
                         + "',email_customer = '" + TxtEmail.getText()
-                        + "',HakAkses = '" + ComboAkses.getSelectedItem()
-                        + "',password = '" + Arrays.toString(TxtPassword.getPassword())
-                        + "',password_conf ='" + Arrays.toString(TxtPasswordConfirm.getPassword())
+                        + "',password = '" + password
                         + "'WHERE id_customer = '" + TxtIdCustomer.getText() + "'";
 
                 PreparedStatement ps = conn.prepareStatement(sql);
@@ -527,20 +483,9 @@ public class frmCustomer extends javax.swing.JInternalFrame {
 
         String Email = TableDaftarCustomer.getValueAt(baris, 3).toString();
         TxtEmail.setText(Email);
-        
-        String JenisStatus = TableDaftarCustomer.getValueAt(baris, 4).toString();
-        if(JenisStatus.equals("admin")){
-            ComboAkses.setSelectedItem(JenisStatus);
-        }
-        else{
-            ComboAkses.setSelectedItem(JenisStatus);
-        }
         /*
         String password = TableDaftarCustomer.getValueAt(baris, 5).toString();
         TxtPassword.setText(password);
-
-        String passwordConfirm = TableDaftarCustomer.getValueAt(baris, 6).toString();
-        TxtPasswordConfirm.setText(passwordConfirm);
         */
     }//GEN-LAST:event_TableDaftarCustomerMouseClicked
 
@@ -556,10 +501,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnExit;
     private javax.swing.JButton BtnHapus;
     private javax.swing.JButton BtnTambah;
-    private javax.swing.JComboBox<String> ComboAkses;
-    private javax.swing.JLabel LblAkses;
     private javax.swing.JLabel LblAlamat;
-    private javax.swing.JLabel LblConfirmPassword;
     private javax.swing.JLabel LblEmail;
     private javax.swing.JLabel LblFormCustomer;
     private javax.swing.JLabel LblIdCustomer;
@@ -575,7 +517,6 @@ public class frmCustomer extends javax.swing.JInternalFrame {
     private javax.swing.JTextField TxtIdCustomer;
     private javax.swing.JTextField TxtNamaLengkap;
     private javax.swing.JPasswordField TxtPassword;
-    private javax.swing.JPasswordField TxtPasswordConfirm;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JLabel jLabel1;

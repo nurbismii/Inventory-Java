@@ -58,8 +58,8 @@ public class frmBarang extends javax.swing.JInternalFrame {
             while (rs.next()) {
                 data[0] = rs.getString("kd_barang");
                 data[1] = rs.getString("nama_barang");
-                data[2] = rs.getString("stok_barang");
-                data[3] = rs.getString("harga_barang");
+                data[2] = rs.getString("harga_barang");
+                data[3] = rs.getString("stok_barang");
                 data[4] = rs.getString("totalHarga");
                 dtm.addRow(data);
                 i++;
@@ -438,10 +438,10 @@ public class frmBarang extends javax.swing.JInternalFrame {
         String namaBarang = TblDaftarBarang.getValueAt(baris, 1).toString();
         TxtNamaBarang.setText(namaBarang);
 
-        String Harga = TblDaftarBarang.getValueAt(baris, 3).toString();
+        String Harga = TblDaftarBarang.getValueAt(baris, 2).toString();
         TxtHarga.setText(Harga);
   
-        String Stok = TblDaftarBarang.getValueAt(baris, 2).toString();
+        String Stok = TblDaftarBarang.getValueAt(baris, 3).toString();
         TxtStok.setText(Stok);
 
         String TotalHarga = TblDaftarBarang.getValueAt(baris, 4).toString();
