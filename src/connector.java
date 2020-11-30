@@ -2,6 +2,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 
 
@@ -18,7 +19,7 @@ import java.sql.Statement;
 public class connector {
     public static Connection con;
     public static Statement stm;
-    public static void main(String args[]){
+    public static void main (String args[]){
         try {
             String url ="jdbc:mysql://localhost/db_tokoenterprise";
             String user="root";
