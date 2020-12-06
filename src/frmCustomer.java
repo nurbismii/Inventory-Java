@@ -1,3 +1,4 @@
+
 import com.mysql.jdbc.Connection;
 import java.awt.HeadlessException;
 import java.sql.DriverManager;
@@ -8,6 +9,7 @@ import java.sql.Statement;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author user
@@ -20,14 +22,43 @@ public class frmCustomer extends javax.swing.JInternalFrame {
     ResultSet rs;
     java.sql.Connection conn;
     PreparedStatement pst;
-    
+
     public frmCustomer() throws Exception {
         conn = null;
         conn = DriverManager.getConnection("jdbc:mysql://localhost/db_tokoenterprise", "root", "");
         initComponents();
         UpdateTabel();
+        TxtIdCustomer.setEditable(false);
     }
-    
+
+    private void searchCustomer(String barang) {
+        try {
+            String sql = "SELECT * from tb_customer WHERE id_customer LIKE '%"
+                    + barang + "%' OR nama_customer LIKE '%"
+                    + barang + "%' OR alamat_customer LIKE '%"
+                    + barang + "%' OR email_customer LIKE '%"
+                    + barang + "%'";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TableDaftarCustomer.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[5];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("id_customer");
+                data[1] = rs.getString("nama_customer");
+                data[3] = rs.getString("alamat_customer");
+                data[4] = rs.getString("email_customer");
+                dtm.addRow(data);
+                i++;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "gagal mencari " + e.getMessage());
+        }
+    }
+
     private void UpdateTabel() {
         try {
             String sql = "SELECT * FROM tb_customer;";
@@ -43,7 +74,6 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                 data[1] = rs.getString("nama_customer");
                 data[2] = rs.getString("alamat_customer");
                 data[3] = rs.getString("email_customer");
-                data[4] = rs.getString("password");
                 dtm.addRow(data);
                 i++;
             }
@@ -51,15 +81,15 @@ public class frmCustomer extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
         }
     }
-      
-    public void clear(){
+
+    public void clear() {
         TxtIdCustomer.setText("");
         TxtNamaLengkap.setText("");
         TxtAlamat.setText("");
         TxtEmail.setText("");
         TxtPassword.setText("");
     }
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -308,6 +338,12 @@ public class frmCustomer extends javax.swing.JInternalFrame {
 
         BtnCari.setText("Cari");
 
+        TxtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtCariKeyPressed(evt);
+            }
+        });
+
         BtnExit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnExit.setText("Tutup");
         BtnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -383,24 +419,23 @@ public class frmCustomer extends javax.swing.JInternalFrame {
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         // Menutup form customer
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
         // Menambah data customer
-        
+
         try {
 
-            String sql = "INSERT INTO tb_customer VALUES('" 
-                    + "" + TxtIdCustomer.getText() + "','"
+            String sql = "INSERT INTO tb_customer VALUES(null,'" //id customer autoincrement dari daatabase
                     + "" + TxtNamaLengkap.getText() + "','"
                     + "" + TxtAlamat.getText() + "','"
                     + "" + TxtEmail.getText() + "','"
                     + "" + Arrays.toString(TxtPassword.getPassword()) + "')";
             stat = conn.createStatement();
             int res = stat.executeUpdate(sql);
-             if (res==1){
-                javax.swing.JOptionPane.showMessageDialog(null,"Data Customer Berhasil ditambah !");
+            if (res == 1) {
+                javax.swing.JOptionPane.showMessageDialog(null, "Data Customer Berhasil ditambah !");
                 UpdateTabel();
                 clear();
             }
@@ -413,18 +448,17 @@ public class frmCustomer extends javax.swing.JInternalFrame {
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
         // Menghapus data customer
         TxtIdCustomer.setEditable(false);
-        try{
-            String sql = "DELETE FROM tb_customer WHERE id_customer = '"+ TxtIdCustomer.getText()+ "'";
+        try {
+            String sql = "DELETE FROM tb_customer WHERE id_customer = '" + TxtIdCustomer.getText() + "'";
             stat = conn.createStatement();
             int hapus = stat.executeUpdate(sql);
-            if(hapus == 1){
+            if (hapus == 1) {
                 JOptionPane.showMessageDialog(null, "Berhasil di hapus ");
                 clear();
                 UpdateTabel();
-                
+
             }
-            }
-        catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Data gagal di hapus" + e.getMessage());
         }
     }//GEN-LAST:event_BtnHapusActionPerformed
@@ -432,23 +466,20 @@ public class frmCustomer extends javax.swing.JInternalFrame {
     private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
         // Mengedit data customer
         TxtIdCustomer.setEditable(false);
-        
+
         String password = "";
-        
+
         password = Arrays.toString(TxtPassword.getPassword());
-        
-        if(password.equals("")){
+
+        if (password.equals("")) {
             JOptionPane.showMessageDialog(null, "Password wajib di isi");
-        }
-        
-        else if (TxtIdCustomer.getText().equals("")) {
+        } else if (TxtIdCustomer.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "LENGKAPI SEMUA DATA!");
         } else {
             try {
-                String sql = "UPDATE tb_customer SET nama_customer='" 
-                        + TxtNamaLengkap.getText() 
-                        + "',nama_customer = '" + TxtNamaLengkap.getText() 
-                        + "',alamat_customer = '" + TxtAlamat.getText() 
+                String sql = "UPDATE tb_customer SET nama_customer='"
+                        + TxtNamaLengkap.getText()
+                        + "',alamat_customer = '" + TxtAlamat.getText()
                         + "',email_customer = '" + TxtEmail.getText()
                         + "',password = '" + password
                         + "'WHERE id_customer = '" + TxtIdCustomer.getText() + "'";
@@ -484,15 +515,26 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         String Email = TableDaftarCustomer.getValueAt(baris, 3).toString();
         TxtEmail.setText(Email);
         /*
-        String password = TableDaftarCustomer.getValueAt(baris, 5).toString();
-        TxtPassword.setText(password);
-        */
+         String password = TableDaftarCustomer.getValueAt(baris, 5).toString();
+         TxtPassword.setText(password);
+         */
     }//GEN-LAST:event_TableDaftarCustomerMouseClicked
 
     private void BtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClearActionPerformed
         // TODO add your handling code here:
         clear();
     }//GEN-LAST:event_BtnClearActionPerformed
+
+    private void TxtCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCariKeyPressed
+        // Fungsi Search tabel barang
+        String barang = TxtCari.getText();
+
+        if (barang != "") {
+            searchCustomer(barang);
+        } else {
+            UpdateTabel();
+        }
+    }//GEN-LAST:event_TxtCariKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCari;

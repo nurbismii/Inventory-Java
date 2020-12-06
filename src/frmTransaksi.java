@@ -1,3 +1,4 @@
+
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,13 +13,12 @@ import java.util.Date;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author user
  */
 public class frmTransaksi extends javax.swing.JInternalFrame {
-    
+
     Connection con;
     Statement stat;
     String sql, kelas;
@@ -27,6 +27,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     PreparedStatement pst;
     int totalHarga, jumlah, harga, stok, jmlAwal;
     String tanggal, temp, kodeBarang;
+
     /**
      * Creates new form frmTransaksi
      */
@@ -38,19 +39,20 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         updateTabelTransaksi();
         LblIdTransaksi.setVisible(false);
         TxtIdTransaksi.setVisible(false);
-    } 
-    public void updateStok(){
-        try{
-            String sql = "UPDATE tb_barang SET stok_barang = '" 
-                    + (Integer.parseInt(temp) - Integer.parseInt(TxtJumlah.getText())) 
-                    + "' WHERE kd_barang = '" + kodeBarang + "'";  
-                    PreparedStatement ps = conn.prepareStatement(sql);
+    }
+
+    public void updateStok() {
+        try {
+            String sql = "UPDATE tb_barang SET stok_barang = '"
+                    + (Integer.parseInt(temp) - Integer.parseInt(TxtJumlah.getText()))
+                    + "' WHERE kd_barang = '" + kodeBarang + "'";
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.executeUpdate();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Barang gagal diupdate" + e.getMessage());
         }
     }
+
     public void clear() {
         TxtIdTransaksi.setText("");
         TxtIdCustomer.setText("");
@@ -58,10 +60,75 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         TxtHarga.setText("");
         TxtJumlah.setText("");
         TxtTotalHarga.setText("");
-        LblTanggalTransaksi.setText(""); 
+        LblTanggalTransaksi.setText("");
     }
-    private void updateTabelBarang(){
-         try {
+
+    private void searchBarang(String barang) {
+        try {
+            String sql = "SELECT * from tb_barang WHERE kd_barang LIKE '%"
+                    + barang + "%' OR nama_barang LIKE '%"
+                    + barang + "%' OR stok_barang LIKE '%"
+                    + barang + "%' OR harga_barang LIKE '%"
+                    + barang + "%' OR totalHarga LIKE '%"
+                    + barang + "%'";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TblDaftarBarang.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[5];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("kd_barang");
+                data[1] = rs.getString("nama_barang");
+                data[2] = rs.getString("stok_barang");
+                data[3] = rs.getString("harga_barang");
+                data[4] = rs.getString("totalHarga");
+                dtm.addRow(data);
+                i++;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "gagal mencari " + e.getMessage());
+        }
+    }
+
+    private void searchTransaksi(String transaksi) {
+        try {
+            String sql = "SELECT * from tb_transaksi WHERE id_transaksi LIKE '%"
+                    + transaksi + "%' OR id_customer LIKE '%"
+                    + transaksi + "%' OR nama_barang LIKE '%"
+                    + transaksi + "%' OR tanggal_transaksi LIKE '%"
+                    + transaksi + "%' OR jumlah_barang LIKE '%"
+                    + transaksi + "%' OR harga LIKE '%"
+                    + transaksi + "%' OR total LIKE '%"
+                    + transaksi + "%'";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TblDaftarTransaksi.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[7];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("id_transaksi");
+                data[1] = rs.getString("id_customer");
+                data[2] = rs.getString("nama_barang");
+                data[3] = rs.getString("tanggal_transaksi");
+                data[4] = rs.getString("jumlah_barang");
+                data[5] = rs.getString("harga");
+                data[6] = rs.getString("total");
+                dtm.addRow(data);
+                i++;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "gagal mencari" + e.getMessage());
+        }
+    }
+
+    private void updateTabelBarang() {
+        try {
             String sql = "SELECT * FROM tb_barang;";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -81,7 +148,8 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
         }
-    } 
+    }
+
     private void updateTabelTransaksi() {
         try {
             String sql = "SELECT * FROM tb_transaksi;";
@@ -107,6 +175,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "tabel error " + e.getMessage());
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -224,7 +293,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                         .addComponent(BtnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 13, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PnlAksiLayout.setVerticalGroup(
@@ -324,6 +393,12 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
         BtnCariBarang.setText("Cari");
 
+        TxtCariDataBarang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtCariDataBarangKeyPressed(evt);
+            }
+        });
+
         TblDaftarBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -396,6 +471,12 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(TblDaftarTransaksi);
 
         BtnCariTransaksi.setText("Cari");
+
+        TxtCariTransaksi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtCariTransaksiKeyPressed(evt);
+            }
+        });
 
         BtnExit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnExit.setText("Tutup");
@@ -472,7 +553,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void TblDaftarBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TblDaftarBarangMouseClicked
@@ -480,7 +561,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         Date date = new Date();
         TblDaftarBarang.setEnabled(false);
         int baris = TblDaftarBarang.rowAtPoint(evt.getPoint());
-        
+
         kodeBarang = TblDaftarBarang.getValueAt(baris, 0).toString();
 
         String namaBarang = TblDaftarBarang.getValueAt(baris, 1).toString();
@@ -491,8 +572,8 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
         tanggal = String.format("%s %tB %<te, %<tY", "", date);
         LblTanggalTransaksi.setText("Tanggal  :" + tanggal);
-        
-        temp = TblDaftarBarang.getValueAt(baris, 3).toString();  
+
+        temp = TblDaftarBarang.getValueAt(baris, 3).toString();
     }//GEN-LAST:event_TblDaftarBarangMouseClicked
 
     private void BtnBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBeliActionPerformed
@@ -501,34 +582,32 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         jumlah = Integer.parseInt(TxtJumlah.getText());
         totalHarga = harga * jumlah;
         TxtTotalHarga.setText(Integer.toString(totalHarga));
-       
-        if(Integer.parseInt(TxtJumlah.getText()) <= Integer.parseInt(temp)){
+
+        if (Integer.parseInt(TxtJumlah.getText()) <= Integer.parseInt(temp)) {
             try {
-            String sql = "INSERT INTO tb_transaksi VALUES(null,'"
-                    + "" + TxtIdCustomer.getText() + "','"
-                    + "" + TxtNamaBarang.getText() + "','"
-                    + "" + harga + "','"
-                    + "" + jumlah + "','"
-                    + "" + tanggal + "','"
-                    + "" + totalHarga + "')";
-            
-            stat = conn.createStatement();
-            int res = stat.executeUpdate(sql);
-            if (res == 1) {
-                updateStok();
-                javax.swing.JOptionPane.showMessageDialog(null, "Barang Berhasil Dibeli! !");
-                updateTabelTransaksi();
-                updateTabelBarang();
-                clear(); 
+                String sql = "INSERT INTO tb_transaksi VALUES(null,'"
+                        + "" + TxtIdCustomer.getText() + "','"
+                        + "" + TxtNamaBarang.getText() + "','"
+                        + "" + harga + "','"
+                        + "" + jumlah + "','"
+                        + "" + tanggal + "','"
+                        + "" + totalHarga + "')";
+
+                stat = conn.createStatement();
+                int res = stat.executeUpdate(sql);
+                if (res == 1) {
+                    updateStok();
+                    javax.swing.JOptionPane.showMessageDialog(null, "Barang Berhasil Dibeli! !");
+                    clear();
+                    updateTabelTransaksi();
+                    updateTabelBarang();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Tambah  Data GAGAL! " + e.getMessage());
             }
-        } 
-            catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Tambah  Data GAGAL! " + e.getMessage());
-            }  
+        } else {
+            JOptionPane.showMessageDialog(null, "Stok barang tidak cukup ");
         }
-        else{
-         JOptionPane.showMessageDialog(null, "Stok barang tidak cukup ");
-        }       
     }//GEN-LAST:event_BtnBeliActionPerformed
 
     private void TblDaftarTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TblDaftarTransaksiMouseClicked
@@ -553,7 +632,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
         String TotalHarga = TblDaftarTransaksi.getValueAt(baris, 6).toString();
         TxtTotalHarga.setText(TotalHarga);
-        
+
         String tanggal = TblDaftarTransaksi.getValueAt(baris, 5).toString();
         LblTanggalTransaksi.setText("Tanggal Transaksi : " + tanggal);
         TblDaftarTransaksi.setEnabled(true);
@@ -583,6 +662,28 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         clear();
     }//GEN-LAST:event_BtnClearActionPerformed
+
+    private void TxtCariDataBarangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCariDataBarangKeyPressed
+        // Fungsi Search tabel barang
+        String barang = TxtCariDataBarang.getText();
+
+        if (barang != "") {
+            searchBarang(barang);
+        } else {
+            updateTabelBarang();
+        }
+    }//GEN-LAST:event_TxtCariDataBarangKeyPressed
+
+    private void TxtCariTransaksiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCariTransaksiKeyPressed
+        // TODO add your handling code here:
+        String transaksi = TxtCariTransaksi.getText();
+
+        if (transaksi != "") {
+            searchTransaksi(transaksi);
+        } else {
+            updateTabelTransaksi();
+        }
+    }//GEN-LAST:event_TxtCariTransaksiKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

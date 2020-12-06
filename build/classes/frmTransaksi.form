@@ -248,7 +248,7 @@
                               <Component id="BtnHapus" min="-2" pref="103" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="BtnClear" min="-2" pref="94" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -400,6 +400,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TxtCariDataBarang">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TxtCariDataBarangKeyPressed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
@@ -582,6 +585,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TxtCariTransaksi">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TxtCariTransaksiKeyPressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BtnExit">
           <Properties>

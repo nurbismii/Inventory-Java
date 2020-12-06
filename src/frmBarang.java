@@ -1,3 +1,4 @@
+
 import com.mysql.jdbc.Connection;
 import java.awt.HeadlessException;
 import java.sql.DriverManager;
@@ -25,16 +26,47 @@ public class frmBarang extends javax.swing.JInternalFrame {
     ResultSet rs;
     java.sql.Connection conn;
     PreparedStatement pst;
-    
-   /**
+
+    /**
      * Creates new form frmBarang
+     *
      * @throws java.lang.Exception
      */
     public frmBarang() throws Exception {
         conn = null;
         conn = DriverManager.getConnection("jdbc:mysql://localhost/db_tokoenterprise", "root", "");
         initComponents();
-        updateTabel();  
+        updateTabel();
+    }
+
+    private void searchBarang(String barang) {
+        try {
+            String sql = "SELECT * from tb_barang WHERE kd_barang LIKE '%"
+                    + barang + "%' OR nama_barang LIKE '%"
+                    + barang + "%' OR stok_barang LIKE '%"
+                    + barang + "%' OR harga_barang LIKE '%"
+                    + barang + "%' OR totalHarga LIKE '%"
+                    + barang + "%'";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TblDaftarBarang.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[5];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("kd_barang");
+                data[1] = rs.getString("nama_barang");
+                data[2] = rs.getString("stok_barang");
+                data[3] = rs.getString("harga_barang");
+                data[4] = rs.getString("totalHarga");
+                dtm.addRow(data);
+                i++;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "gagal mencari " + e.getMessage());
+        }
     }
 
     public void clear() {
@@ -44,8 +76,8 @@ public class frmBarang extends javax.swing.JInternalFrame {
         TxtStok.setText("");
         TxtTotalHarga.setText("");
     }
-    
-     private void updateTabel() {
+
+    private void updateTabel() {
         try {
             String sql = "SELECT * FROM tb_barang;";
             pst = conn.prepareStatement(sql);
@@ -68,7 +100,30 @@ public class frmBarang extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
         }
     }
-     
+
+    private void updateTabelBarang() {
+        try {
+            String sql = "SELECT * FROM tb_barang;";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TblDaftarBarang.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[4];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("kd_barang");
+                data[1] = rs.getString("nama_barang");
+                data[2] = rs.getString("harga_barang");
+                data[3] = rs.getString("stok_barang");
+                dtm.addRow(data);
+                i++;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,8 +153,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
         TxtTotalHarga = new javax.swing.JTextField();
         TxtStok = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        BtnCari = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtSearchDataBarang = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TblDaftarBarang = new javax.swing.JTable();
         BtnExit = new javax.swing.JButton();
@@ -107,7 +161,6 @@ public class frmBarang extends javax.swing.JInternalFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setResizable(true);
 
         PnlFormBarang.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -121,7 +174,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
             .addGroup(PnlFormBarangLayout.createSequentialGroup()
                 .addGap(444, 444, 444)
                 .addComponent(LblFormBarang)
-                .addContainerGap(547, Short.MAX_VALUE))
+                .addContainerGap(567, Short.MAX_VALUE))
         );
         PnlFormBarangLayout.setVerticalGroup(
             PnlFormBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,29 +276,31 @@ public class frmBarang extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(LblHarga)
-                                        .addComponent(LblStok))
-                                    .addGap(83, 83, 83)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(TxtStok, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TxtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TxtTotalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(126, 126, 126))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LblKodeBarang)
+                            .addGap(18, 18, 18)
+                            .addComponent(TxtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap())
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(LblNamaBarang)
-                                        .addComponent(LblKodeBarang))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(TxtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TxtNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(17, 17, 17)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(TxtNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(LblHarga)
+                                            .addComponent(LblStok))
+                                        .addGap(80, 80, 80)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(TxtTotalHarga, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                            .addComponent(TxtStok, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TxtHarga))
+                                        .addGap(129, 129, 129)))
+                                .addGap(17, 17, 17))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -280,8 +335,11 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("DAFTAR BARANG"));
 
-        BtnCari.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        BtnCari.setText("Cari ");
+        txtSearchDataBarang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchDataBarangKeyPressed(evt);
+            }
+        });
 
         TblDaftarBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -343,24 +401,20 @@ public class frmBarang extends javax.swing.JInternalFrame {
                         .addComponent(BtnExit))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(BtnCari)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtSearchDataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnCari)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtSearchDataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
                 .addComponent(BtnExit)
                 .addContainerGap())
         );
@@ -385,7 +439,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -393,19 +447,19 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
         // Menambah data barang 
-        
+
         int totalHarga, stok, harga;
-        
+
         harga = Integer.parseInt(TxtHarga.getText());
         stok = Integer.parseInt(TxtStok.getText());
         totalHarga = harga * stok;
         TxtTotalHarga.setText(Integer.toString(totalHarga));
-        
+
         try {
             String sql = "INSERT INTO tb_barang VALUES('"
                     + "" + TxtKodeBarang.getText() + "','"
@@ -413,7 +467,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
                     + "" + stok + "','"
                     + "" + harga + "','"
                     + "" + totalHarga + "')";
-            
+
             stat = conn.createStatement();
             int res = stat.executeUpdate(sql);
             if (res == 1) {
@@ -440,12 +494,12 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
         String Harga = TblDaftarBarang.getValueAt(baris, 2).toString();
         TxtHarga.setText(Harga);
-  
+
         String Stok = TblDaftarBarang.getValueAt(baris, 3).toString();
         TxtStok.setText(Stok);
 
         String TotalHarga = TblDaftarBarang.getValueAt(baris, 4).toString();
-        TxtTotalHarga.setText(TotalHarga); 
+        TxtTotalHarga.setText(TotalHarga);
     }//GEN-LAST:event_TblDaftarBarangMouseClicked
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
@@ -473,23 +527,23 @@ public class frmBarang extends javax.swing.JInternalFrame {
     private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
         // TODO add your handling code here:
         TxtKodeBarang.setEditable(false);
-        
+
         int totalHarga, stok, harga;
-        
+
         harga = Integer.parseInt(TxtHarga.getText());
         stok = Integer.parseInt(TxtStok.getText());
         totalHarga = harga * stok;
         TxtTotalHarga.setText(Integer.toString(totalHarga));
-        
+
         if (TxtKodeBarang.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "LENGKAPI SEMUA DATA!");
         } else {
             try {
                 String sql = "UPDATE tb_barang SET nama_barang='"
                         + TxtNamaBarang.getText()
-                        + "',nama_barang = '" + TxtNamaBarang.getText() 
-                        + "',stok_barang = '" + TxtStok.getText() 
-                        + "',harga_barang = '" + TxtHarga.getText() 
+                        + "',nama_barang = '" + TxtNamaBarang.getText()
+                        + "',stok_barang = '" + TxtStok.getText()
+                        + "',harga_barang = '" + TxtHarga.getText()
                         + "',TotalHarga = '" + TxtTotalHarga.getText()
                         + "'WHERE kd_barang = '" + TxtKodeBarang.getText() + "'";
 
@@ -507,8 +561,20 @@ public class frmBarang extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BtnEditActionPerformed
 
+    private void txtSearchDataBarangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchDataBarangKeyPressed
+        // Fungsi Search tabel barang
+        String barang = txtSearchDataBarang.getText();
+
+        if (barang != "") {
+            searchBarang(barang);
+        } else {
+            updateTabelBarang();
+        }
+
+
+    }//GEN-LAST:event_txtSearchDataBarangKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnCari;
     private javax.swing.JButton BtnClear;
     private javax.swing.JButton BtnEdit;
     private javax.swing.JButton BtnExit;
@@ -532,7 +598,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtSearchDataBarang;
     // End of variables declaration//GEN-END:variables
 
     private String StringValueOf() {

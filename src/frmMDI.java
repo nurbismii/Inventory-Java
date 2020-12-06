@@ -1,3 +1,4 @@
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -12,7 +13,6 @@ import javax.swing.table.*;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author user
@@ -24,7 +24,7 @@ public class frmMDI extends javax.swing.JFrame {
      */
     final static String StringDriver = "com.mysql.jdbc.Driver";
     final static String StringConnection = "jdbc:mysql://localhost:3306/db_tokoenterprise?user=root&password=";
-    
+
     Dimension dimensi = Toolkit.getDefaultToolkit().getScreenSize();
 
     public frmMDI() {
@@ -32,16 +32,16 @@ public class frmMDI extends javax.swing.JFrame {
         initComponents();
         //setBounds();
     }
-    
-    public void setBounds(){
-            this.setBounds(0, 0, 1400, 950);
-            this.setLocation(dimensi.width / 2
+
+    public void setBounds() {
+        this.setBounds(0, 0, 1400, 950);
+        this.setLocation(dimensi.width / 2
                 - this.getWidth() / 2, dimensi.height / 2
                 - this.getHeight() / 2);
-            this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-            this.setAlwaysOnTop(true);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setAlwaysOnTop(true);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -235,19 +235,19 @@ public class frmMDI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void MenuBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarangActionPerformed
         // TODO add your handling code here:
-       try {
+        try {
             frmBarang frmBarang = new frmBarang();
             frmMDI.add(frmBarang);
-            frmBarang.setBounds((frmMDI.getWidth() / 2) 
-                            - (frmBarang.getWidth() / 2), (frmMDI.getHeight() / 2) 
-                                    - (frmBarang.getHeight() / 2), frmBarang.getWidth(), frmBarang.getHeight());
-            frmBarang.setVisible(true);  
+            frmBarang.setBounds((frmMDI.getWidth() / 2)
+                    - (frmBarang.getWidth() / 2), (frmMDI.getHeight() / 2)
+                    - (frmBarang.getHeight() / 2), frmBarang.getWidth(), frmBarang.getHeight());
+            frmBarang.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        }      
+        }
     }//GEN-LAST:event_MenuBarangActionPerformed
 
     private void MenuSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSupplierActionPerformed
@@ -255,27 +255,27 @@ public class frmMDI extends javax.swing.JFrame {
         try {
             frmSupplier frmSupplier = new frmSupplier();
             frmMDI.add(frmSupplier);
-            frmSupplier.setBounds((frmMDI.getWidth() / 2) 
-                            - (frmSupplier.getWidth() / 2), (frmMDI.getHeight() / 2) 
-                                    - (frmSupplier.getHeight() / 2), frmSupplier.getWidth(), frmSupplier.getHeight());
-            frmSupplier.setVisible(true);  
+            frmSupplier.setBounds((frmMDI.getWidth() / 2)
+                    - (frmSupplier.getWidth() / 2), (frmMDI.getHeight() / 2)
+                    - (frmSupplier.getHeight() / 2), frmSupplier.getWidth(), frmSupplier.getHeight());
+            frmSupplier.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        } 
+        }
     }//GEN-LAST:event_MenuSupplierActionPerformed
 
     private void MenuCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCustomerActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             frmCustomer frmCustomer = new frmCustomer();
             frmMDI.add(frmCustomer);
-            frmCustomer.setBounds((frmMDI.getWidth() / 2) 
-                            - (frmCustomer.getWidth() / 2), (frmMDI.getHeight() / 2) 
-                                    - (frmCustomer.getHeight() / 2), frmCustomer.getWidth(), frmCustomer.getHeight());
-            frmCustomer.setVisible(true);  
+            frmCustomer.setBounds((frmMDI.getWidth() / 2)
+                    - (frmCustomer.getWidth() / 2), (frmMDI.getHeight() / 2)
+                    - (frmCustomer.getHeight() / 2), frmCustomer.getWidth(), frmCustomer.getHeight());
+            frmCustomer.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        } 
+        }
     }//GEN-LAST:event_MenuCustomerActionPerformed
 
     private void MenuTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuTransaksiActionPerformed
@@ -283,13 +283,13 @@ public class frmMDI extends javax.swing.JFrame {
         try {
             frmTransaksi frmTransaksi = new frmTransaksi();
             frmMDI.add(frmTransaksi);
-            frmTransaksi.setBounds((frmMDI.getWidth() / 2) 
-                            - (frmTransaksi.getWidth() / 2), (frmMDI.getHeight() / 2) 
-                                    - (frmTransaksi.getHeight() / 2), frmTransaksi.getWidth(), frmTransaksi.getHeight());
-            frmTransaksi.setVisible(true);  
+            frmTransaksi.setBounds((frmMDI.getWidth() / 2)
+                    - (frmTransaksi.getWidth() / 2), (frmMDI.getHeight() / 2)
+                    - (frmTransaksi.getHeight() / 2), frmTransaksi.getWidth(), frmTransaksi.getHeight());
+            frmTransaksi.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        }     
+        }
     }//GEN-LAST:event_MenuTransaksiActionPerformed
 
     private void MenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuExitActionPerformed
@@ -299,16 +299,16 @@ public class frmMDI extends javax.swing.JFrame {
 
     private void BtnBArangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBArangMouseClicked
         // Modify Button Barang
-         try {
+        try {
             frmBarang frmBarang = new frmBarang();
             frmMDI.add(frmBarang);
-            frmBarang.setBounds((frmMDI.getWidth() / 2) 
-                            - (frmBarang.getWidth() / 2), (frmMDI.getHeight() / 2) 
-                                    - (frmBarang.getHeight() / 2), frmBarang.getWidth(), frmBarang.getHeight());
-            frmBarang.setVisible(true);  
+            frmBarang.setBounds((frmMDI.getWidth() / 2)
+                    - (frmBarang.getWidth() / 2), (frmMDI.getHeight() / 2)
+                    - (frmBarang.getHeight() / 2), frmBarang.getWidth(), frmBarang.getHeight());
+            frmBarang.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        }    
+        }
     }//GEN-LAST:event_BtnBArangMouseClicked
 
     private void BtnTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnTransaksiMouseClicked
@@ -316,13 +316,13 @@ public class frmMDI extends javax.swing.JFrame {
         try {
             frmTransaksi frmTransaksi = new frmTransaksi();
             frmMDI.add(frmTransaksi);
-            frmTransaksi.setBounds((frmMDI.getWidth() / 2) 
-                            - (frmTransaksi.getWidth() / 2), (frmMDI.getHeight() / 2) 
-                                    - (frmTransaksi.getHeight() / 2), frmTransaksi.getWidth(), frmTransaksi.getHeight());
+            frmTransaksi.setBounds((frmMDI.getWidth() / 2)
+                    - (frmTransaksi.getWidth() / 2), (frmMDI.getHeight() / 2)
+                    - (frmTransaksi.getHeight() / 2), frmTransaksi.getWidth(), frmTransaksi.getHeight());
             frmTransaksi.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        } 
+        }
     }//GEN-LAST:event_BtnTransaksiMouseClicked
 
     private void BtnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSupplierMouseClicked
@@ -330,13 +330,13 @@ public class frmMDI extends javax.swing.JFrame {
         try {
             frmSupplier frmSupplier = new frmSupplier();
             frmMDI.add(frmSupplier);
-            frmSupplier.setBounds((frmMDI.getWidth() / 2) 
-                            - (frmSupplier.getWidth() / 2), (frmMDI.getHeight() / 2) 
-                                    - (frmSupplier.getHeight() / 2), frmSupplier.getWidth(), frmSupplier.getHeight());
+            frmSupplier.setBounds((frmMDI.getWidth() / 2)
+                    - (frmSupplier.getWidth() / 2), (frmMDI.getHeight() / 2)
+                    - (frmSupplier.getHeight() / 2), frmSupplier.getWidth(), frmSupplier.getHeight());
             frmSupplier.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan sistem! " + e.getMessage());
-        } 
+        }
     }//GEN-LAST:event_BtnSupplierMouseClicked
 
     /**
@@ -365,8 +365,7 @@ public class frmMDI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(frmMDI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
