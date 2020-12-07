@@ -36,6 +36,36 @@ public class frmBarang extends javax.swing.JInternalFrame {
         initComponents();
         updateTabel();  
     }
+    
+    private void searchBarang(String barang) {
+        try {
+            String sql = "SELECT * from tb_barang WHERE kd_barang LIKE '%"
+                    + barang + "%' OR nama_barang LIKE '%"
+                    + barang + "%' OR stok_barang LIKE '%"
+                    + barang + "%' OR harga_barang LIKE '%"
+                    + barang + "%' OR totalHarga LIKE '%"
+                    + barang + "%'";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TblDaftarBarang.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[5];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("kd_barang");
+                data[1] = rs.getString("nama_barang");
+                data[2] = rs.getString("stok_barang");
+                data[3] = rs.getString("harga_barang");
+                data[4] = rs.getString("totalHarga");
+                dtm.addRow(data);
+                i++;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "gagal mencari " + e.getMessage());
+        }
+    }
 
     public void clear() {
         TxtKodeBarang.setText("");
@@ -98,16 +128,15 @@ public class frmBarang extends javax.swing.JInternalFrame {
         TxtTotalHarga = new javax.swing.JTextField();
         TxtStok = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        BtnCari = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        TxtCariBarang = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TblDaftarBarang = new javax.swing.JTable();
         BtnExit = new javax.swing.JButton();
+        LblCariBarang = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setResizable(true);
 
         PnlFormBarang.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -121,7 +150,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
             .addGroup(PnlFormBarangLayout.createSequentialGroup()
                 .addGap(444, 444, 444)
                 .addComponent(LblFormBarang)
-                .addContainerGap(547, Short.MAX_VALUE))
+                .addContainerGap(542, Short.MAX_VALUE))
         );
         PnlFormBarangLayout.setVerticalGroup(
             PnlFormBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,9 +174,10 @@ public class frmBarang extends javax.swing.JInternalFrame {
         LblStok.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblStok.setText("Stok");
 
-        PnlAksi.setBackground(new java.awt.Color(204, 204, 204));
+        PnlAksi.setBackground(new java.awt.Color(255, 255, 255));
         PnlAksi.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Action", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trajan Pro", 0, 18))); // NOI18N
 
+        BtnTambah.setBackground(new java.awt.Color(0, 255, 51));
         BtnTambah.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnTambah.setText("Tambah");
         BtnTambah.setPreferredSize(new java.awt.Dimension(100, 25));
@@ -157,6 +187,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnHapus.setBackground(new java.awt.Color(255, 51, 51));
         BtnHapus.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnHapus.setText("Hapus");
         BtnHapus.setPreferredSize(new java.awt.Dimension(100, 25));
@@ -166,6 +197,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnClear.setBackground(new java.awt.Color(255, 153, 102));
         BtnClear.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnClear.setText("CLear");
         BtnClear.setPreferredSize(new java.awt.Dimension(100, 25));
@@ -175,6 +207,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnEdit.setBackground(new java.awt.Color(255, 255, 51));
         BtnEdit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnEdit.setText("Edit");
         BtnEdit.setPreferredSize(new java.awt.Dimension(100, 25));
@@ -223,29 +256,31 @@ public class frmBarang extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(LblHarga)
-                                        .addComponent(LblStok))
-                                    .addGap(83, 83, 83)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(TxtStok, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TxtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TxtTotalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(126, 126, 126))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LblKodeBarang)
+                            .addGap(18, 18, 18)
+                            .addComponent(TxtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap())
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(LblNamaBarang)
-                                        .addComponent(LblKodeBarang))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(TxtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TxtNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(17, 17, 17)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(TxtNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(LblHarga)
+                                            .addComponent(LblStok))
+                                        .addGap(80, 80, 80)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(TxtTotalHarga, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                            .addComponent(TxtStok, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TxtHarga))
+                                        .addGap(129, 129, 129)))
+                                .addGap(17, 17, 17))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -280,8 +315,11 @@ public class frmBarang extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("DAFTAR BARANG"));
 
-        BtnCari.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        BtnCari.setText("Cari ");
+        TxtCariBarang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtCariBarangKeyPressed(evt);
+            }
+        });
 
         TblDaftarBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -332,6 +370,8 @@ public class frmBarang extends javax.swing.JInternalFrame {
             }
         });
 
+        LblCariBarang.setText("Search");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -344,11 +384,13 @@ public class frmBarang extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(BtnCari)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(LblCariBarang)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtCariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -356,11 +398,11 @@ public class frmBarang extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnCari)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtCariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LblCariBarang))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                 .addComponent(BtnExit)
                 .addContainerGap())
         );
@@ -385,7 +427,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -507,13 +549,24 @@ public class frmBarang extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BtnEditActionPerformed
 
+    private void TxtCariBarangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCariBarangKeyPressed
+        // TODO add your handling code here:
+        String barang = TxtCariBarang.getText();
+        
+        if (barang != "") {
+            searchBarang(barang);
+        } else {
+            updateTabel();
+        }
+    }//GEN-LAST:event_TxtCariBarangKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnCari;
     private javax.swing.JButton BtnClear;
     private javax.swing.JButton BtnEdit;
     private javax.swing.JButton BtnExit;
     private javax.swing.JButton BtnHapus;
     private javax.swing.JButton BtnTambah;
+    private javax.swing.JLabel LblCariBarang;
     private javax.swing.JLabel LblFormBarang;
     private javax.swing.JLabel LblHarga;
     private javax.swing.JLabel LblKodeBarang;
@@ -522,6 +575,7 @@ public class frmBarang extends javax.swing.JInternalFrame {
     private javax.swing.JPanel PnlAksi;
     private javax.swing.JPanel PnlFormBarang;
     private javax.swing.JTable TblDaftarBarang;
+    private javax.swing.JTextField TxtCariBarang;
     private javax.swing.JTextField TxtHarga;
     private javax.swing.JTextField TxtKodeBarang;
     private javax.swing.JTextField TxtNamaBarang;
@@ -532,7 +586,6 @@ public class frmBarang extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private String StringValueOf() {

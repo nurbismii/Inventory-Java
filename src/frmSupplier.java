@@ -93,11 +93,11 @@ public class frmSupplier extends javax.swing.JInternalFrame  {
         BtnClear = new javax.swing.JButton();
         BtnHapus = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        BtnCari = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TblDaftarSupplier = new javax.swing.JTable();
         TxtCari = new javax.swing.JTextField();
         BtnExit = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -153,9 +153,10 @@ public class frmSupplier extends javax.swing.JInternalFrame  {
         LblEmail.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblEmail.setText("Email");
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Action", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trajan Pro", 0, 18))); // NOI18N
 
+        BtnTambah.setBackground(new java.awt.Color(0, 255, 51));
         BtnTambah.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnTambah.setText("Tambah");
         BtnTambah.setPreferredSize(new java.awt.Dimension(100, 25));
@@ -165,6 +166,7 @@ public class frmSupplier extends javax.swing.JInternalFrame  {
             }
         });
 
+        BtnEdit.setBackground(new java.awt.Color(255, 255, 51));
         BtnEdit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnEdit.setText("Edit");
         BtnEdit.setPreferredSize(new java.awt.Dimension(100, 25));
@@ -174,6 +176,7 @@ public class frmSupplier extends javax.swing.JInternalFrame  {
             }
         });
 
+        BtnClear.setBackground(new java.awt.Color(255, 153, 51));
         BtnClear.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnClear.setText("Clear");
         BtnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -182,6 +185,7 @@ public class frmSupplier extends javax.swing.JInternalFrame  {
             }
         });
 
+        BtnHapus.setBackground(new java.awt.Color(255, 51, 51));
         BtnHapus.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnHapus.setText("Hapus");
         BtnHapus.setPreferredSize(new java.awt.Dimension(100, 25));
@@ -285,9 +289,6 @@ public class frmSupplier extends javax.swing.JInternalFrame  {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("DAFTAR SUPPLIER"));
 
-        BtnCari.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        BtnCari.setText("Cari");
-
         TblDaftarSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -322,36 +323,37 @@ public class frmSupplier extends javax.swing.JInternalFrame  {
             }
         });
 
+        jLabel1.setText("Search");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BtnExit))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(BtnCari)
-                                .addGap(18, 18, 18)
-                                .addComponent(TxtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 384, Short.MAX_VALUE)))))
+                            .addComponent(BtnExit, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnCari)
-                    .addComponent(TxtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(TxtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addComponent(BtnExit)
                 .addContainerGap())
         );
@@ -362,11 +364,11 @@ public class frmSupplier extends javax.swing.JInternalFrame  {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PnlFormSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -484,7 +486,6 @@ public class frmSupplier extends javax.swing.JInternalFrame  {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnCari;
     private javax.swing.JButton BtnClear;
     private javax.swing.JButton BtnEdit;
     private javax.swing.JButton BtnExit;
@@ -504,6 +505,7 @@ public class frmSupplier extends javax.swing.JInternalFrame  {
     private javax.swing.JTextField TxtKodeSupplier;
     private javax.swing.JTextField TxtNamaSupplier;
     private javax.swing.JTextField TxtNoTelp;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

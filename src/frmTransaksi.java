@@ -107,6 +107,71 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "tabel error " + e.getMessage());
         }
     }
+    
+    private void searchBarang(String barang) {
+        try {
+            String sql = "SELECT * from tb_barang WHERE kd_barang LIKE '%"
+                    + barang + "%' OR nama_barang LIKE '%"
+                    + barang + "%' OR stok_barang LIKE '%"
+                    + barang + "%' OR harga_barang LIKE '%"
+                    + barang + "%' OR totalHarga LIKE '%"
+                    + barang + "%'";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TblDaftarBarang.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[5];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("kd_barang");
+                data[1] = rs.getString("nama_barang");
+                data[2] = rs.getString("stok_barang");
+                data[3] = rs.getString("harga_barang");
+                data[4] = rs.getString("totalHarga");
+                dtm.addRow(data);
+                i++;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "gagal mencari " + e.getMessage());
+        }
+    }
+    
+    private void searchTransaksi(String transaksi) {
+        try {
+            String sql = "SELECT * from tb_transaksi WHERE id_transaksi LIKE '%"
+                    + transaksi + "%' OR id_customer LIKE '%"
+                    + transaksi + "%' OR nama_barang LIKE '%"
+                    + transaksi + "%' OR tanggal_transaksi LIKE '%"
+                    + transaksi + "%' OR jumlah_barang LIKE '%"
+                    + transaksi + "%' OR harga LIKE '%"
+                    + transaksi + "%' OR total LIKE '%"
+                    + transaksi + "%'";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TblDaftarTransaksi.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[7];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("id_transaksi");
+                data[1] = rs.getString("id_customer");
+                data[2] = rs.getString("nama_barang");
+                data[3] = rs.getString("tanggal_transaksi");
+                data[4] = rs.getString("jumlah_barang");
+                data[5] = rs.getString("harga");
+                data[6] = rs.getString("total");
+                dtm.addRow(data);
+                i++;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "gagal mencari" + e.getMessage());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,16 +202,16 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         LblIdTransaksi = new javax.swing.JLabel();
         TxtIdTransaksi = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        BtnCariBarang = new javax.swing.JButton();
-        TxtCariDataBarang = new javax.swing.JTextField();
+        TxtCariBarang = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         TblDaftarBarang = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TblDaftarTransaksi = new javax.swing.JTable();
-        BtnCariTransaksi = new javax.swing.JButton();
         TxtCariTransaksi = new javax.swing.JTextField();
         BtnExit = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -183,10 +248,11 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         LblTotalHarga.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblTotalHarga.setText("Total Harga");
 
-        PnlAksi.setBackground(new java.awt.Color(204, 204, 204));
+        PnlAksi.setBackground(new java.awt.Color(255, 255, 255));
         PnlAksi.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Action", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trajan Pro", 0, 16))); // NOI18N
         PnlAksi.setPreferredSize(new java.awt.Dimension(224, 155));
 
+        BtnBeli.setBackground(new java.awt.Color(0, 255, 51));
         BtnBeli.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnBeli.setText("Beli");
         BtnBeli.addActionListener(new java.awt.event.ActionListener() {
@@ -195,6 +261,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnHapus.setBackground(new java.awt.Color(255, 102, 102));
         BtnHapus.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnHapus.setText("Hapus");
         BtnHapus.setMaximumSize(new java.awt.Dimension(103, 25));
@@ -204,7 +271,9 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnClear.setBackground(new java.awt.Color(255, 204, 102));
         BtnClear.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        BtnClear.setForeground(new java.awt.Color(51, 51, 51));
         BtnClear.setText("Clear");
         BtnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -322,7 +391,11 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("DAFTAR BARANG"));
 
-        BtnCariBarang.setText("Cari");
+        TxtCariBarang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtCariBarangKeyPressed(evt);
+            }
+        });
 
         TblDaftarBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -345,6 +418,8 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(TblDaftarBarang);
 
+        jLabel1.setText("Search");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -352,24 +427,24 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(BtnCariBarang)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TxtCariDataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(TxtCariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnCariBarang)
-                    .addComponent(TxtCariDataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(TxtCariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("DAFTAR TRANSAKSI"));
@@ -395,7 +470,11 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(TblDaftarTransaksi);
 
-        BtnCariTransaksi.setText("Cari");
+        TxtCariTransaksi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtCariTransaksiKeyPressed(evt);
+            }
+        });
 
         BtnExit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnExit.setText("Tutup");
@@ -405,6 +484,8 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel3.setText("Search");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -412,29 +493,27 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(BtnCariTransaksi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TxtCariTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(BtnExit))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE))
-                        .addGap(27, 27, 27))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnExit, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtCariTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(27, 27, 27))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnCariTransaksi)
-                    .addComponent(TxtCariTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TxtCariTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BtnExit)
                 .addContainerGap())
         );
@@ -449,8 +528,8 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -458,12 +537,12 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -568,7 +647,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             stat = conn.createStatement();
             int hapus = stat.executeUpdate(sql);
             if (hapus == 1) {
-                JOptionPane.showMessageDialog(null, "Berhasil di hapus ");
+                JOptionPane.showMessageDialog(null, "Berhasil di hapus");
                 clear();
                 updateTabelTransaksi();
                 updateTabelBarang();
@@ -584,11 +663,32 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         clear();
     }//GEN-LAST:event_BtnClearActionPerformed
 
+    private void TxtCariBarangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCariBarangKeyPressed
+        // TODO add your handling code here:
+        String barang = TxtCariBarang.getText();
+        
+        if (barang != ""){
+            searchBarang(barang);
+        }
+        else{
+            updateTabelBarang();
+        }
+    }//GEN-LAST:event_TxtCariBarangKeyPressed
+
+    private void TxtCariTransaksiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCariTransaksiKeyPressed
+        // TODO add your handling code here:
+        String transaksi = TxtCariTransaksi.getText();
+        if(transaksi != ""){
+            searchTransaksi(transaksi);
+        }
+        else{
+            updateTabelTransaksi();
+        }
+    }//GEN-LAST:event_TxtCariTransaksiKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBeli;
-    private javax.swing.JButton BtnCariBarang;
-    private javax.swing.JButton BtnCariTransaksi;
     private javax.swing.JButton BtnClear;
     private javax.swing.JButton BtnExit;
     private javax.swing.JButton BtnHapus;
@@ -602,7 +702,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     private javax.swing.JPanel PnlAksi;
     private javax.swing.JTable TblDaftarBarang;
     private javax.swing.JTable TblDaftarTransaksi;
-    private javax.swing.JTextField TxtCariDataBarang;
+    private javax.swing.JTextField TxtCariBarang;
     private javax.swing.JTextField TxtCariTransaksi;
     private javax.swing.JTextField TxtHarga;
     private javax.swing.JTextField TxtIdCustomer;
@@ -610,7 +710,9 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     private javax.swing.JTextField TxtJumlah;
     private javax.swing.JTextField TxtNamaBarang;
     private javax.swing.JTextField TxtTotalHarga;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

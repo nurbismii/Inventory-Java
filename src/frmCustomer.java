@@ -28,6 +28,34 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         UpdateTabel();
     }
     
+    private void searchCustomer(String customer) {
+        try {
+            String sql = "SELECT * from tb_customer WHERE id_customer LIKE '%"
+                    + customer + "%' OR nama_customer LIKE '%"
+                    + customer + "%' OR alamat_customer LIKE '%"
+                    + customer + "%' OR email_customer LIKE '%"
+                    + customer + "%'";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) TableDaftarCustomer.getModel();
+            dtm.setRowCount(0);
+            String[] data = new String[5];
+            int i = 1;
+
+            while (rs.next()) {
+                data[0] = rs.getString("id_customer");
+                data[1] = rs.getString("nama_customer");
+                data[2] = rs.getString("alamat_customer");
+                data[3] = rs.getString("email_customer");
+                dtm.addRow(data);
+                i++;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "gagal mencari " + e.getMessage());
+        }
+    }
+    
     private void UpdateTabel() {
         try {
             String sql = "SELECT * FROM tb_customer;";
@@ -89,10 +117,9 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableDaftarCustomer = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        BtnCari = new javax.swing.JButton();
         TxtCari = new javax.swing.JTextField();
         BtnExit = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -116,7 +143,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
             .addGroup(PnlFormCustomerLayout.createSequentialGroup()
                 .addGap(472, 472, 472)
                 .addComponent(LblFormCustomer)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(496, Short.MAX_VALUE))
         );
         PnlFormCustomerLayout.setVerticalGroup(
             PnlFormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,9 +170,10 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         LblEmail.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblEmail.setText("Email ");
 
-        PnlAksi.setBackground(new java.awt.Color(204, 204, 204));
+        PnlAksi.setBackground(new java.awt.Color(255, 255, 255));
         PnlAksi.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Action", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trajan Pro", 0, 16))); // NOI18N
 
+        BtnTambah.setBackground(new java.awt.Color(0, 255, 51));
         BtnTambah.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnTambah.setText("Tambah");
         BtnTambah.addActionListener(new java.awt.event.ActionListener() {
@@ -154,6 +182,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnEdit.setBackground(new java.awt.Color(255, 255, 51));
         BtnEdit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnEdit.setText("Edit");
         BtnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +191,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnHapus.setBackground(new java.awt.Color(255, 51, 51));
         BtnHapus.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnHapus.setText("Hapus");
         BtnHapus.addActionListener(new java.awt.event.ActionListener() {
@@ -170,6 +200,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnClear.setBackground(new java.awt.Color(255, 153, 102));
         BtnClear.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnClear.setText("Clear");
         BtnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -282,6 +313,20 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -303,10 +348,11 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(TableDaftarCustomer);
 
-        jLabel1.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        jLabel1.setText("Daftar Customer");
-
-        BtnCari.setText("Cari");
+        TxtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtCariKeyPressed(evt);
+            }
+        });
 
         BtnExit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         BtnExit.setText("Tutup");
@@ -316,6 +362,8 @@ public class frmCustomer extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setText("Search");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -324,32 +372,28 @@ public class frmCustomer extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(BtnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TxtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(263, 263, 263))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(BtnExit)
-                                .addContainerGap())))))
+                        .addComponent(BtnExit)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TxtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnCari)
-                    .addComponent(TxtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BtnExit)
                 .addContainerGap())
@@ -494,8 +538,18 @@ public class frmCustomer extends javax.swing.JInternalFrame {
         clear();
     }//GEN-LAST:event_BtnClearActionPerformed
 
+    private void TxtCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCariKeyPressed
+        // TODO add your handling code here:
+        String customer = TxtCari.getText();
+        
+        if (customer != "") {
+            searchCustomer(customer);
+        } else {
+            UpdateTabel();
+        }
+    }//GEN-LAST:event_TxtCariKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnCari;
     private javax.swing.JButton BtnClear;
     private javax.swing.JButton BtnEdit;
     private javax.swing.JButton BtnExit;
@@ -519,7 +573,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField TxtPassword;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
