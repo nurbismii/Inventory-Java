@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +16,6 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author user
@@ -28,10 +28,12 @@ public class frmLogin extends javax.swing.JFrame {
     ResultSet rs;
     java.sql.Connection conn;
     PreparedStatement pst;
-    String level = "";
-    
+    String level = null;
+    String idLogin = "";
+    session Session = new session();
+
     Dimension dimensi = Toolkit.getDefaultToolkit().getScreenSize();
-    
+
     public frmLogin() throws Exception {
         super("Login");
         setSize((int) (0.7 * dimensi.width), (int) (0.7 * dimensi.height));
@@ -41,45 +43,49 @@ public class frmLogin extends javax.swing.JFrame {
         conn = null;
         conn = DriverManager.getConnection("jdbc:mysql://localhost/db_tokoenterprise", "root", "");
         initComponents();
-  
-    } 
-    private void login(){
-        try{
 
-            String sql = "SELECT level FROM tb_user WHERE username='"+TxtUsername.getText()+"' AND password='"+TxtPassword.getText()+"'";
+    }
+   
+
+    private void login() {
+        try {
+            String sql = "SELECT level FROM tb_user WHERE username='"
+                    + TxtUsername.getText() + "' AND password='"
+                    + TxtPassword.getText() + "'";
             stat = conn.createStatement();
             rs = stat.executeQuery(sql);
+
+            while (rs.next()) {
+                level = rs.getString("level");
+            }
+            rs.last();
             
-            while(rs.next()){
-                level = rs.getString(1);
-            }
-            if(level.equals("admin")){
+            if (level.equals("admin")) {
                 JOptionPane.showMessageDialog(null, "Berhasil login sebagai admin");
-                this.setVisible(false);
+                session.setLvl(level);
+                this.dispose();
                 new frmMDI().setVisible(true);
-                
-            }
-            else if(level.equals("user")){
+
+            } else if (level.equals("user")) {
                 JOptionPane.showMessageDialog(null, "Berhasil login sebagai user");
-                this.setVisible(false); 
+                session.setLvl(level);
+                this.dispose();
                 new frmMDI().setVisible(true);
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Silahkan login terlebih dahulu");
-               
+
             }
-        } 
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan" + e.getMessage());
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Login Gagal!" + e.getMessage());
         }
     }
-    
-    public void clear(){
+
+    public void clear() {
         TxtUsername.setText("");
         TxtPassword.setText("");
     }
-  
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -97,6 +103,7 @@ public class frmLogin extends javax.swing.JFrame {
         LblbgKanan = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Aplikasi Toko Enterprise");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PnlLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -107,7 +114,7 @@ public class frmLogin extends javax.swing.JFrame {
         PnlLogin.add(LblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 380, 150, 30));
 
         LblbgKiri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LblbgKiri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg-login.jpg"))); // NOI18N
+        LblbgKiri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg_log.jpg"))); // NOI18N
         PnlLogin.add(LblbgKiri, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 606, 720));
 
         LblUsername.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
@@ -138,6 +145,16 @@ public class frmLogin extends javax.swing.JFrame {
         LblBuatAkun.setForeground(new java.awt.Color(102, 153, 255));
         LblBuatAkun.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LblBuatAkun.setText("Buat Akun");
+        LblBuatAkun.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LblBuatAkunMouseClicked(evt);
+            }
+        });
+        LblBuatAkun.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LblBuatAkunKeyPressed(evt);
+            }
+        });
         PnlLogin.add(LblBuatAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 500, -1, -1));
 
         LblSistem.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
@@ -166,7 +183,7 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void BtnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCloseMouseClicked
         // Menutup frame
-        this.setVisible(false);
+        System.exit(0);
     }//GEN-LAST:event_BtnCloseMouseClicked
 
     private void BtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLoginActionPerformed
@@ -179,44 +196,21 @@ public class frmLogin extends javax.swing.JFrame {
         login();
     }//GEN-LAST:event_BtnLoginKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void LblBuatAkunKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LblBuatAkunKeyPressed
+        // TODO add your handling code here:
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new frmLogin().setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+    }//GEN-LAST:event_LblBuatAkunKeyPressed
+
+    private void LblBuatAkunMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblBuatAkunMouseClicked
+        try {
+            new daftar().setVisible(true);
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_LblBuatAkunMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BtnClose;

@@ -427,7 +427,7 @@ public class frmCustomer extends javax.swing.JInternalFrame {
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         // Menutup form customer
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
