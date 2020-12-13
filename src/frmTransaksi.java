@@ -1,4 +1,9 @@
+
 import com.mysql.jdbc.Connection;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,19 +11,24 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author user
  */
 public class frmTransaksi extends javax.swing.JInternalFrame {
-    
+
     Connection con;
     Statement stat;
     String sql, kelas;
@@ -27,6 +37,10 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     PreparedStatement pst;
     int totalHarga, jumlah, harga, stok, jmlAwal;
     String tanggal, temp, kodeBarang;
+    String nama_user = "";
+    session Session = new session();
+    String nama = session.getName();
+
     /**
      * Creates new form frmTransaksi
      */
@@ -38,30 +52,96 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         updateTabelTransaksi();
         LblIdTransaksi.setVisible(false);
         TxtIdTransaksi.setVisible(false);
-    } 
-    public void updateStok(){
-        try{
-            String sql = "UPDATE tb_barang SET stok_barang = '" 
-                    + (Integer.parseInt(temp) - Integer.parseInt(TxtJumlah.getText())) 
-                    + "' WHERE kd_barang = '" + kodeBarang + "'";  
-                    PreparedStatement ps = conn.prepareStatement(sql);
+        TxtTotalHarga.setEditable(false);
+        getData();
+    }
+
+    public void getData() {
+        TxtNamaUser.setEditable(false);
+        TxtNamaUser.setText(nama);
+
+    }
+
+    public void updateStok() {
+        try {
+            String sql = "UPDATE tb_barang SET stok_barang = '"
+                    + (Integer.parseInt(temp) - Integer.parseInt(TxtJumlah.getText()))
+                    + "' WHERE kd_barang = '" + kodeBarang + "'";
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.executeUpdate();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Barang gagal diupdate" + e.getMessage());
         }
     }
+
+    public void exportToExcel() {
+        FileOutputStream excelFOS = null;
+        BufferedOutputStream excelBOS = null;
+        XSSFWorkbook wb = null;
+
+        JFileChooser excelFileChooser = new JFileChooser();
+        excelFileChooser.setDialogTitle("Save As");
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("Excel Files", "xls", "xlsx", "ods");
+        excelFileChooser.setFileFilter(fnef);
+        int excelChooser = excelFileChooser.showSaveDialog(null);
+
+        if (excelChooser == JFileChooser.APPROVE_OPTION) {
+
+            try {
+                wb = new XSSFWorkbook();
+                XSSFSheet sheet = wb.createSheet("Data Sheet");
+
+                for (int i = 0; i < TblDaftarTransaksi.getRowCount(); i++) {
+                    XSSFRow excelRow = sheet.createRow(i);
+                    for (int j = 0; j < TblDaftarTransaksi.getColumnCount(); j++) {
+
+                        XSSFCell excelCell = excelRow.createCell(j);
+                        excelCell.setCellValue(TblDaftarTransaksi.getValueAt(i, j).toString());
+
+                    }
+                }
+
+                excelFOS = new FileOutputStream(excelFileChooser.getSelectedFile() + ".xlsx");
+                excelBOS = new BufferedOutputStream(excelFOS);
+                wb.write(excelBOS);
+                JOptionPane.showMessageDialog(null, "Successfully saved.");
+
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    if (excelBOS != null) {
+                        excelBOS.close();
+                    }
+                    if (excelFOS != null) {
+                        excelFOS.close();
+                    }
+                    if (wb != null) {
+                        wb.close();
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } //---- end finally
+        }
+
+    }
+
     public void clear() {
         TxtIdTransaksi.setText("");
-        TxtIdCustomer.setText("");
+        TxtNamaUser.setText("");
         TxtNamaBarang.setText("");
         TxtHarga.setText("");
         TxtJumlah.setText("");
         TxtTotalHarga.setText("");
-        LblTanggalTransaksi.setText(""); 
+        LblTanggalTransaksi.setText("");
+        getData();
     }
-    private void updateTabelBarang(){
-         try {
+
+    private void updateTabelBarang() {
+        try {
             String sql = "SELECT * FROM tb_barang;";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -81,10 +161,11 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Gagal menyimpan data " + e.getMessage());
         }
-    } 
+    }
+
     private void updateTabelTransaksi() {
         try {
-            String sql = "SELECT * FROM tb_transaksi;";
+            String sql = "SELECT * FROM tb_transaksi WHERE nama_user LIKE '%" + nama + "%'";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             DefaultTableModel dtm = (DefaultTableModel) TblDaftarTransaksi.getModel();
@@ -94,7 +175,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
             while (rs.next()) {
                 data[0] = rs.getString("id_transaksi");
-                data[1] = rs.getString("id_customer");
+                data[1] = rs.getString("nama_user");
                 data[2] = rs.getString("nama_barang");
                 data[3] = rs.getString("jumlah_barang");
                 data[4] = rs.getString("harga");
@@ -107,7 +188,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "tabel error " + e.getMessage());
         }
     }
-    
+
     private void searchBarang(String barang) {
         try {
             String sql = "SELECT * from tb_barang WHERE kd_barang LIKE '%"
@@ -137,11 +218,11 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "gagal mencari " + e.getMessage());
         }
     }
-    
+
     private void searchTransaksi(String transaksi) {
         try {
             String sql = "SELECT * from tb_transaksi WHERE id_transaksi LIKE '%"
-                    + transaksi + "%' OR id_customer LIKE '%"
+                    + transaksi + "%' OR nama_user LIKE '%"
                     + transaksi + "%' OR nama_barang LIKE '%"
                     + transaksi + "%' OR tanggal_transaksi LIKE '%"
                     + transaksi + "%' OR jumlah_barang LIKE '%"
@@ -157,7 +238,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
             while (rs.next()) {
                 data[0] = rs.getString("id_transaksi");
-                data[1] = rs.getString("id_customer");
+                data[1] = rs.getString("nama_user");
                 data[2] = rs.getString("nama_barang");
                 data[3] = rs.getString("tanggal_transaksi");
                 data[4] = rs.getString("jumlah_barang");
@@ -171,7 +252,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "gagal mencari" + e.getMessage());
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -196,11 +277,13 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         LblCustomer = new javax.swing.JLabel();
         LblNamaBarang = new javax.swing.JLabel();
         TxtJumlah = new javax.swing.JTextField();
-        TxtIdCustomer = new javax.swing.JTextField();
+        TxtNamaUser = new javax.swing.JTextField();
         TxtNamaBarang = new javax.swing.JTextField();
         LblTanggalTransaksi = new javax.swing.JLabel();
         LblIdTransaksi = new javax.swing.JLabel();
         TxtIdTransaksi = new javax.swing.JTextField();
+        lblExport = new javax.swing.JLabel();
+        BtnExit = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         TxtCariBarang = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -210,7 +293,6 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TblDaftarTransaksi = new javax.swing.JTable();
         TxtCariTransaksi = new javax.swing.JTextField();
-        BtnExit = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -218,23 +300,23 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel2.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
-        jLabel2.setText("form transaksi");
+        jLabel2.setText("TRANSAKSI");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(473, 473, 473)
+                .addContainerGap()
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel2)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("DATA TRANSAKSI"));
@@ -293,7 +375,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                         .addComponent(BtnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 13, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PnlAksiLayout.setVerticalGroup(
@@ -309,7 +391,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         );
 
         LblCustomer.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        LblCustomer.setText("Id Customer");
+        LblCustomer.setText("Nama User");
 
         LblNamaBarang.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblNamaBarang.setText("Nama Barang");
@@ -320,6 +402,23 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         LblIdTransaksi.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
         LblIdTransaksi.setText("ID Transaksi");
 
+        lblExport.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/export.png"))); // NOI18N
+        lblExport.setText("EXPORT");
+        lblExport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblExportMouseClicked(evt);
+            }
+        });
+
+        BtnExit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
+        BtnExit.setText("Tutup");
+        BtnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnExitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -327,9 +426,9 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(LblIdTransaksi)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(LblTanggalTransaksi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -342,18 +441,22 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                                     .addComponent(LblTotalHarga))
                                 .addGap(43, 43, 43)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TxtTotalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TxtNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(TxtJumlah, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                                         .addComponent(TxtHarga, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(TxtTotalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(TxtNamaBarang, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(TxtIdTransaksi, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(TxtIdCustomer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))))
-                        .addContainerGap(34, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(LblIdTransaksi)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(TxtNamaUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
+                                .addGap(48, 48, 48)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblExport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,7 +468,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LblCustomer)
-                    .addComponent(TxtIdCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtNamaUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LblNamaBarang)
@@ -379,14 +482,21 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                     .addComponent(LblJumlah)
                     .addComponent(TxtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LblTotalHarga)
                     .addComponent(TxtTotalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LblTanggalTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(PnlAksi, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(lblExport)
+                        .addGap(26, 26, 26)
+                        .addComponent(BtnExit)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("DAFTAR BARANG"));
@@ -427,7 +537,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
@@ -460,7 +570,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Transaksi", "ID Customer", "Nama Barang", "Harga", "Jumlah", "Tanggal", "Total Harga"
+                "ID Transaksi", "Nama User", "Nama Barang", "Jumlah", "Harga", "Tanggal", "Total Harga"
             }
         ));
         TblDaftarTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -476,14 +586,6 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             }
         });
 
-        BtnExit.setFont(new java.awt.Font("Trajan Pro", 0, 16)); // NOI18N
-        BtnExit.setText("Tutup");
-        BtnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnExitActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Search");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -493,15 +595,12 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnExit, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TxtCariTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TxtCariTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
         );
         jPanel4Layout.setVerticalGroup(
@@ -512,10 +611,8 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                     .addComponent(TxtCariTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BtnExit)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(46, 46, 46))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -528,22 +625,21 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -551,7 +647,8 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+
+        this.dispose();
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void TblDaftarBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TblDaftarBarangMouseClicked
@@ -559,7 +656,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         Date date = new Date();
         TblDaftarBarang.setEnabled(false);
         int baris = TblDaftarBarang.rowAtPoint(evt.getPoint());
-        
+
         kodeBarang = TblDaftarBarang.getValueAt(baris, 0).toString();
 
         String namaBarang = TblDaftarBarang.getValueAt(baris, 1).toString();
@@ -570,8 +667,8 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
         tanggal = String.format("%s %tB %<te, %<tY", "", date);
         LblTanggalTransaksi.setText("Tanggal  :" + tanggal);
-        
-        temp = TblDaftarBarang.getValueAt(baris, 3).toString();  
+
+        temp = TblDaftarBarang.getValueAt(baris, 3).toString();
     }//GEN-LAST:event_TblDaftarBarangMouseClicked
 
     private void BtnBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBeliActionPerformed
@@ -580,34 +677,33 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         jumlah = Integer.parseInt(TxtJumlah.getText());
         totalHarga = harga * jumlah;
         TxtTotalHarga.setText(Integer.toString(totalHarga));
-       
-        if(Integer.parseInt(TxtJumlah.getText()) <= Integer.parseInt(temp)){
+
+        if (Integer.parseInt(TxtJumlah.getText()) <= Integer.parseInt(temp)) {
             try {
-            String sql = "INSERT INTO tb_transaksi VALUES(null,'"
-                    + "" + TxtIdCustomer.getText() + "','"
-                    + "" + TxtNamaBarang.getText() + "','"
-                    + "" + harga + "','"
-                    + "" + jumlah + "','"
-                    + "" + tanggal + "','"
-                    + "" + totalHarga + "')";
-            
-            stat = conn.createStatement();
-            int res = stat.executeUpdate(sql);
-            if (res == 1) {
-                updateStok();
-                javax.swing.JOptionPane.showMessageDialog(null, "Barang Berhasil Dibeli! !");
-                updateTabelTransaksi();
-                updateTabelBarang();
-                clear(); 
+                String sql = "INSERT INTO tb_transaksi VALUES(null,'"
+                        + "" + TxtNamaUser.getText() + "','"
+                        + "" + TxtNamaBarang.getText() + "','"
+                        + "" + jumlah + "','"
+                        + "" + harga + "','"
+                        + "" + tanggal + "','"
+                        + "" + totalHarga + "')";
+
+                stat = conn.createStatement();
+                int res = stat.executeUpdate(sql);
+                if (res == 1) {
+                    updateStok();
+                    javax.swing.JOptionPane.showMessageDialog(null, "Barang Berhasil Dibeli! !");
+                    updateTabelTransaksi();
+                    updateTabelBarang();
+                    clear();
+
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Tambah  Data GAGAL! " + e.getMessage());
             }
-        } 
-            catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Tambah  Data GAGAL! " + e.getMessage());
-            }  
+        } else {
+            JOptionPane.showMessageDialog(null, "Stok barang tidak cukup ");
         }
-        else{
-         JOptionPane.showMessageDialog(null, "Stok barang tidak cukup ");
-        }       
     }//GEN-LAST:event_BtnBeliActionPerformed
 
     private void TblDaftarTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TblDaftarTransaksiMouseClicked
@@ -618,8 +714,8 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
         String idTransaksi = TblDaftarTransaksi.getValueAt(baris, 0).toString();
         TxtIdTransaksi.setText(idTransaksi);
 
-        String idCustomer = TblDaftarTransaksi.getValueAt(baris, 1).toString();
-        TxtIdCustomer.setText(idCustomer);
+        String NamaUser = TblDaftarTransaksi.getValueAt(baris, 1).toString();
+        TxtNamaUser.setText(NamaUser);
 
         String namaBarang = TblDaftarTransaksi.getValueAt(baris, 2).toString();
         TxtNamaBarang.setText(namaBarang);
@@ -632,7 +728,7 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
 
         String TotalHarga = TblDaftarTransaksi.getValueAt(baris, 6).toString();
         TxtTotalHarga.setText(TotalHarga);
-        
+
         String tanggal = TblDaftarTransaksi.getValueAt(baris, 5).toString();
         LblTanggalTransaksi.setText("Tanggal Transaksi : " + tanggal);
         TblDaftarTransaksi.setEnabled(true);
@@ -666,11 +762,10 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     private void TxtCariBarangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCariBarangKeyPressed
         // TODO add your handling code here:
         String barang = TxtCariBarang.getText();
-        
-        if (barang != ""){
+
+        if (barang != "") {
             searchBarang(barang);
-        }
-        else{
+        } else {
             updateTabelBarang();
         }
     }//GEN-LAST:event_TxtCariBarangKeyPressed
@@ -678,13 +773,17 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     private void TxtCariTransaksiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCariTransaksiKeyPressed
         // TODO add your handling code here:
         String transaksi = TxtCariTransaksi.getText();
-        if(transaksi != ""){
+        if (transaksi != "") {
             searchTransaksi(transaksi);
-        }
-        else{
+        } else {
             updateTabelTransaksi();
         }
     }//GEN-LAST:event_TxtCariTransaksiKeyPressed
+
+    private void lblExportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExportMouseClicked
+        // TODO add your handling code here:
+        exportToExcel();
+    }//GEN-LAST:event_lblExportMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -705,10 +804,10 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     private javax.swing.JTextField TxtCariBarang;
     private javax.swing.JTextField TxtCariTransaksi;
     private javax.swing.JTextField TxtHarga;
-    private javax.swing.JTextField TxtIdCustomer;
     private javax.swing.JTextField TxtIdTransaksi;
     private javax.swing.JTextField TxtJumlah;
     private javax.swing.JTextField TxtNamaBarang;
+    private javax.swing.JTextField TxtNamaUser;
     private javax.swing.JTextField TxtTotalHarga;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -719,5 +818,6 @@ public class frmTransaksi extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblExport;
     // End of variables declaration//GEN-END:variables
 }

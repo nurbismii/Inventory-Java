@@ -247,9 +247,12 @@ public class daftar extends javax.swing.JFrame {
 
         } else {
             try {
+                char[] pass = txtPassUser.getPassword(); 
+                String passStr = new String(pass);
+                
                 String sql = "INSERT INTO tb_user VALUES(null,'"
                         + "" + txtUsername.getText() + "','"
-                        + "" + Arrays.toString(txtPassUser.getPassword()) + "','"
+                        + "" + passStr + "','"
                         + "" + txtNama.getText() + "','"
                         + "" + akses + "')";
 

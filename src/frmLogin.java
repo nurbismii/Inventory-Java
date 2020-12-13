@@ -29,6 +29,8 @@ public class frmLogin extends javax.swing.JFrame {
     java.sql.Connection conn;
     PreparedStatement pst;
     String level = null;
+    String u_nama = null;
+    int u_id = 0;
     String idLogin = "";
     session Session = new session();
 
@@ -43,35 +45,34 @@ public class frmLogin extends javax.swing.JFrame {
         conn = null;
         conn = DriverManager.getConnection("jdbc:mysql://localhost/db_tokoenterprise", "root", "");
         initComponents();
-
+        TxtUsername.setText("admin");
+        TxtPassword.setText("admin");
     }
-   
 
     private void login() {
         try {
-            String sql = "SELECT level FROM tb_user WHERE username='"
+            String sql = "SELECT * FROM tb_user WHERE username='"
                     + TxtUsername.getText() + "' AND password='"
                     + TxtPassword.getText() + "'";
             stat = conn.createStatement();
             rs = stat.executeQuery(sql);
 
             while (rs.next()) {
+                u_id = rs.getInt("id_user");
+                u_nama = rs.getString("nama_user");
                 level = rs.getString("level");
             }
             rs.last();
             
-            if (level.equals("admin")) {
-                JOptionPane.showMessageDialog(null, "Berhasil login sebagai admin");
+            if (rs.getRow() == 1) {
+                session.setIdlog(u_id);
+                session.setName(u_nama);
                 session.setLvl(level);
+                JOptionPane.showMessageDialog(null, "Selamat Datang! " + u_nama);
                 this.dispose();
                 new frmMDI().setVisible(true);
-
-            } else if (level.equals("user")) {
-                JOptionPane.showMessageDialog(null, "Berhasil login sebagai user");
-                session.setLvl(level);
-                this.dispose();
-                new frmMDI().setVisible(true);
-            } else {
+            } 
+            else{
                 JOptionPane.showMessageDialog(null, "Silahkan login terlebih dahulu");
 
             }
@@ -104,6 +105,8 @@ public class frmLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplikasi Toko Enterprise");
+        setMaximumSize(new java.awt.Dimension(1230, 720));
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PnlLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -179,6 +182,7 @@ public class frmLogin extends javax.swing.JFrame {
         getContentPane().add(PnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1230, 720));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCloseMouseClicked
